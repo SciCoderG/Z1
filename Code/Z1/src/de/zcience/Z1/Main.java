@@ -11,6 +11,7 @@ public class Main {
         config.title = "LudumDare_DT_2015";
         config.width = 1024;
         config.height = 576;
+        config.vSyncEnabled=true;
         //config.resizable = false;
         new LwjglApplication(new Game(), config);
     }
