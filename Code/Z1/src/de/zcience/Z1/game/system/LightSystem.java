@@ -26,13 +26,13 @@ public class LightSystem extends EntitySystem {
 
 	@Override
 	public void update(float deltaTime) {
-		ProfilerGlobal.startTime();
+//		ProfilerGlobal.startTime();
 		rayHandler.setCombinedMatrix(EntityCreator.camSystem
 				.getCamera().combined);
 		rayHandler.updateAndRender();
 		super.update(deltaTime);
-		ProfilerGlobal.endTime();
-		ProfilerGlobal.outMax("light-");
+//		ProfilerGlobal.endTime();
+//		ProfilerGlobal.outMax("light-");
 	}
 
 	public static void setRayHandler(World world) {
