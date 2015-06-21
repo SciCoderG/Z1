@@ -2,6 +2,7 @@ package de.zcience.Z1.game.system;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
+import com.badlogic.ashley.systems.IteratingSystem;
 
 import de.zcience.Z1.game.components.InputComponent;
 import de.zcience.Z1.game.components.JumpComponent;
@@ -9,14 +10,12 @@ import de.zcience.Z1.game.components.MovementComponent;
 import de.zcience.Z1.game.util.CompMappers;
 import de.zcience.Z1.physics.PhysicsBodyComponent;
 
-public class MovementSystem extends IteratingProfilingSystem {
+public class MovementSystem extends IteratingSystem {
 
 
 	public MovementSystem(int priority) {
 		super(Family.all(MovementComponent.class , PhysicsBodyComponent.class)
 				.get(), priority);
-		profiler.setMessage("movement-");
-		//setProfiling(true);
 	}
 
 	@Override

@@ -26,12 +26,8 @@ public class DeathSystem extends IteratingSystem {
 		DeathComponent deathComp = CompMappers.death.get(entity);
 		TextureComponent textureComp = CompMappers.texture.get(entity);
 
-		if (CompMappers.physicsBody.has(entity)) {
-			// if (CompMappers.input.has(entity)) {
-			// entity.remove(InputComponent.class);
-			// }
-			// entity.remove(PhysicsBodyComponent.class);
-		}
+		
+		
 
 		if (deathComp.timer > 0) {
 			deathComp.timer -= deltaTime;
@@ -62,7 +58,7 @@ public class DeathSystem extends IteratingSystem {
 
 			} else if(CompMappers.enemy.has(entity)){
 				EntityCreator.engine.removeEntity(entity);
-				EntityCreator.enemyCounter --;
+				EntityCreator.enemyCounter--;
 			}
 		}
 	}

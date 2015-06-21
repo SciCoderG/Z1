@@ -2,6 +2,7 @@ package de.zcience.Z1.game.system;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
+import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import de.zcience.Z1.game.EntityCreator;
@@ -12,14 +13,12 @@ import de.zcience.Z1.game.util.CompMappers;
 import de.zcience.Z1.game.util.DrawUtil;
 import de.zcience.Z1.game.util.GameConstants;
 
-public class TextureRenderer extends IteratingProfilingSystem {
+public class TextureRenderer extends IteratingSystem {
 
 	public TextureRenderer(int priority) {
 		super(
 				Family.all(TextureComponent.class, PositionComponent.class)
 						.get(), priority);
-		profiler.setMessage("texture-");
-//		setProfiling(true);
 	}
 
 	@Override

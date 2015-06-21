@@ -2,6 +2,7 @@ package de.zcience.Z1.game.system;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
+import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.Vector2;
 
 import de.zcience.Z1.game.EntityCreator;
@@ -11,14 +12,12 @@ import de.zcience.Z1.game.components.ShootingComponent;
 import de.zcience.Z1.game.util.CompMappers;
 import de.zcience.Z1.physics.PhysicsBodyComponent;
 
-public class ShootingSystem extends IteratingProfilingSystem {
+public class ShootingSystem extends IteratingSystem {
 
 	public ShootingSystem(int priority) {
 		super(Family.all(PositionComponent.class, PhysicsBodyComponent.class)
 				.one(InputComponent.class, ShootingComponent.class).get(),
 				priority);
-		profiler.setMessage("shooting-");
-//		setProfiling(true);
 	}
 
 	@Override

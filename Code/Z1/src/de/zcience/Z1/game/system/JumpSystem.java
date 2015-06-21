@@ -2,18 +2,17 @@ package de.zcience.Z1.game.system;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
+import com.badlogic.ashley.systems.IteratingSystem;
 
 import de.zcience.Z1.game.components.InputComponent;
 import de.zcience.Z1.game.components.JumpComponent;
 import de.zcience.Z1.physics.PhysicsBodyComponent;
 
-public class JumpSystem extends IteratingProfilingSystem {
+public class JumpSystem extends IteratingSystem {
 
 	public JumpSystem(int priority) {
 		super(Family.all(InputComponent.class, PhysicsBodyComponent.class,
 				JumpComponent.class).get(), priority);
-		profiler.setMessage("jump-");
-		//setProfiling(true);
 	}
 
 	@Override
