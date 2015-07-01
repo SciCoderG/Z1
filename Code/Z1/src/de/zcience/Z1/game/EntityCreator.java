@@ -12,25 +12,25 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Fixture;
 
-import de.zcience.Z1.game.components.BulletLightComponent;
 import de.zcience.Z1.game.components.EnemyComponent;
-import de.zcience.Z1.game.components.InputComponent;
 import de.zcience.Z1.game.components.JumpComponent;
-import de.zcience.Z1.game.components.LightComponent;
-import de.zcience.Z1.game.components.MovementComponent;
 import de.zcience.Z1.game.components.PlayerComponent;
-import de.zcience.Z1.game.components.PositionComponent;
 import de.zcience.Z1.game.components.ShootingComponent;
 import de.zcience.Z1.game.components.StartPointComponent;
-import de.zcience.Z1.game.components.TextureComponent;
-import de.zcience.Z1.game.system.CameraSystem;
-import de.zcience.Z1.game.system.LightSystem;
-import de.zcience.Z1.game.util.AssetLoader;
-import de.zcience.Z1.game.util.GameConstants;
-import de.zcience.Z1.physics.PhysicsBodyComponent;
-import de.zcience.Z1.physics.PhysicsSystem;
-import de.zcience.Z1.physics.util.PhysicsBodyDef;
-import de.zcience.Z1.physics.util.PhysicsFixtureDef;
+import de.zcience.Z1.zengine.camera.CameraSystem;
+import de.zcience.Z1.zengine.input.InputComponent;
+import de.zcience.Z1.zengine.physics.MovementComponent;
+import de.zcience.Z1.zengine.physics.PhysicsBodyComponent;
+import de.zcience.Z1.zengine.physics.PhysicsSystem;
+import de.zcience.Z1.zengine.physics.PositionComponent;
+import de.zcience.Z1.zengine.physics.util.PhysicsBodyDef;
+import de.zcience.Z1.zengine.physics.util.PhysicsFixtureDef;
+import de.zcience.Z1.zengine.rendering.LightSystem;
+import de.zcience.Z1.zengine.rendering.components.BulletLightComponent;
+import de.zcience.Z1.zengine.rendering.components.LightComponent;
+import de.zcience.Z1.zengine.rendering.components.TextureComponent;
+import de.zcience.Z1.zengine.util.AssetLoader;
+import de.zcience.Z1.zengine.util.GameConstants;
 
 /**
  * 

@@ -6,11 +6,11 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.Vector2;
 
 import de.zcience.Z1.game.EntityCreator;
-import de.zcience.Z1.game.components.InputComponent;
-import de.zcience.Z1.game.components.PositionComponent;
 import de.zcience.Z1.game.components.ShootingComponent;
-import de.zcience.Z1.game.util.CompMappers;
-import de.zcience.Z1.physics.PhysicsBodyComponent;
+import de.zcience.Z1.zengine.input.InputComponent;
+import de.zcience.Z1.zengine.physics.PhysicsBodyComponent;
+import de.zcience.Z1.zengine.physics.PositionComponent;
+import de.zcience.Z1.zengine.util.CompMappers;
 
 public class ShootingSystem extends IteratingSystem {
 

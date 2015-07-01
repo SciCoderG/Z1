@@ -4,9 +4,9 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 
-import de.zcience.Z1.game.components.InputComponent;
 import de.zcience.Z1.game.components.JumpComponent;
-import de.zcience.Z1.physics.PhysicsBodyComponent;
+import de.zcience.Z1.zengine.input.InputComponent;
+import de.zcience.Z1.zengine.physics.PhysicsBodyComponent;
 
 public class JumpSystem extends IteratingSystem {
 

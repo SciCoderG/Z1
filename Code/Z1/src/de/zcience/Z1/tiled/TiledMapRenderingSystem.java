@@ -5,8 +5,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 import de.zcience.Z1.game.EntityCreator;
-import de.zcience.Z1.game.util.GameConstants;
-import de.zcience.Z1.game.util.MapLoader;
+import de.zcience.Z1.zengine.util.GameConstants;
+import de.zcience.Z1.zengine.util.MapLoader;
 
 public class TiledMapRenderingSystem extends EntitySystem{
 
