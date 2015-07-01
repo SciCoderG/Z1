@@ -18,25 +18,25 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
-import de.zcience.Z1.audio.MusicManager;
-import de.zcience.Z1.audio.SoundManager;
 import de.zcience.Z1.game.contactlistener.MyContactListener;
-import de.zcience.Z1.game.system.CameraSystem;
 import de.zcience.Z1.game.system.DeathSystem;
 import de.zcience.Z1.game.system.JumpSystem;
-import de.zcience.Z1.game.system.LightSystem;
-import de.zcience.Z1.game.system.MovementSystem;
 import de.zcience.Z1.game.system.ShootingSystem;
-import de.zcience.Z1.game.system.TextureRenderer;
-import de.zcience.Z1.game.system.UpdatePositionSystem;
-import de.zcience.Z1.game.util.AssetLoader;
-import de.zcience.Z1.game.util.DrawUtil;
-import de.zcience.Z1.game.util.GameConstants;
-import de.zcience.Z1.game.util.MapLoader;
-import de.zcience.Z1.input.InputManager;
-import de.zcience.Z1.physics.PhysicsSystem;
-import de.zcience.Z1.profiling.ProfilerGlobal;
 import de.zcience.Z1.tiled.TiledMapRenderingSystem;
+import de.zcience.Z1.zengine.audio.MusicManager;
+import de.zcience.Z1.zengine.audio.SoundManager;
+import de.zcience.Z1.zengine.camera.CameraSystem;
+import de.zcience.Z1.zengine.input.InputManager;
+import de.zcience.Z1.zengine.physics.MovementSystem;
+import de.zcience.Z1.zengine.physics.PhysicsSystem;
+import de.zcience.Z1.zengine.physics.UpdatePositionSystem;
+import de.zcience.Z1.zengine.profiling.ProfilerGlobal;
+import de.zcience.Z1.zengine.rendering.LightSystem;
+import de.zcience.Z1.zengine.rendering.TextureRenderer;
+import de.zcience.Z1.zengine.util.AssetLoader;
+import de.zcience.Z1.zengine.util.DrawUtil;
+import de.zcience.Z1.zengine.util.GameConstants;
+import de.zcience.Z1.zengine.util.MapLoader;
 
 public class Game implements ApplicationListener {
 
@@ -46,7 +46,6 @@ public class Game implements ApplicationListener {
 	 * Testing!
 	 */
 	private Box2DDebugRenderer box2DDebugRenderer;
-	private BitmapFont font;
 	
 	private static boolean doDebugRendering = true;
 
@@ -98,13 +97,6 @@ public class Game implements ApplicationListener {
 		/* Create debugRenderer and tiledMapRenderer*/
 		// TODO - move this to a class it belongs to. into the rendering!
 		box2DDebugRenderer = new Box2DDebugRenderer();
-
-		
-
-
-		
-		font = new BitmapFont();
-
 	}
 
 	public void addSystems() {
@@ -152,42 +144,12 @@ public class Game implements ApplicationListener {
 
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 
-		
-//		ProfilerGlobal.startTime();
 		engine.update(Gdx.graphics.getDeltaTime());
-//		ProfilerGlobal.endTime();
-//		ProfilerGlobal.outMax("engine-");
-		
-		
+
 		if(doDebugRendering){
-//			ProfilerGlobal.startTime();
 			box2DDebugRenderer.render(EntityCreator.physicsSystem.getWorld(),
 					EntityCreator.camSystem.getCamera().combined);
-//			ProfilerGlobal.endTime();
-//			ProfilerGlobal.outMax("box2dDebug-");
 		}
-		
-
-		// THIS DOES NOT BELONG HERE. PANIC!!!!! (#notimeleft)
-		DrawUtil.batch.begin();
-		if (EntityCreator.enemyCounter > 0) {
-			font.draw(DrawUtil.batch, "Demon-girls without love: "
-					+ EntityCreator.enemyCounter,
-					10,
-					20);
-		} else {
-			font.draw(
-					DrawUtil.batch,
-					"Hey, you really did it! THANKS FOR PLAYING (this really alpha version of a game -.-)",
-					10,
-					20);
-		}
-		font.draw(
-				DrawUtil.batch,
-				"FPS: " + Gdx.graphics.getFramesPerSecond(),
-				10,
-				40);
-		DrawUtil.batch.end();
 	}
 
 	@Override

@@ -15,8 +15,8 @@ import de.zcience.Z1.game.components.EnemyComponent;
 import de.zcience.Z1.game.components.JumpComponent;
 import de.zcience.Z1.game.components.PlayerComponent;
 import de.zcience.Z1.game.components.ShootingComponent;
-import de.zcience.Z1.game.util.CompMappers;
-import de.zcience.Z1.physics.PhysicsBodyComponent;
+import de.zcience.Z1.zengine.physics.PhysicsBodyComponent;
+import de.zcience.Z1.zengine.util.CompMappers;
 
 public class MyContactListener implements ContactListener {
 

@@ -7,12 +7,12 @@ import com.badlogic.ashley.utils.ImmutableArray;
 
 import de.zcience.Z1.game.EntityCreator;
 import de.zcience.Z1.game.components.DeathComponent;
-import de.zcience.Z1.game.components.PositionComponent;
 import de.zcience.Z1.game.components.StartPointComponent;
-import de.zcience.Z1.game.components.TextureComponent;
-import de.zcience.Z1.game.util.CompMappers;
-import de.zcience.Z1.game.util.GameConstants;
-import de.zcience.Z1.physics.PhysicsBodyComponent;
+import de.zcience.Z1.zengine.physics.PhysicsBodyComponent;
+import de.zcience.Z1.zengine.physics.PositionComponent;
+import de.zcience.Z1.zengine.rendering.components.TextureComponent;
+import de.zcience.Z1.zengine.util.CompMappers;
+import de.zcience.Z1.zengine.util.GameConstants;
 
 public class DeathSystem extends IteratingSystem {
 
@@ -24,10 +24,7 @@ public class DeathSystem extends IteratingSystem {
 	@Override
 	protected void processEntity(Entity entity, float deltaTime) {
 		DeathComponent deathComp = CompMappers.death.get(entity);
-		TextureComponent textureComp = CompMappers.texture.get(entity);
-
-		
-		
+		TextureComponent textureComp = CompMappers.texture.get(entity);		
 
 		if (deathComp.timer > 0) {
 			deathComp.timer -= deltaTime;
