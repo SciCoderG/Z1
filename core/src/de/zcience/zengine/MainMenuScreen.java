@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.AddAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -28,7 +29,6 @@ public class MainMenuScreen implements Screen {
 		this.game = game;
 
 		stage = new Stage(new ScreenViewport(), game.getBatch());
-
 		Gdx.input.setInputProcessor(stage);
 
 		// TODO: Load from files
@@ -49,20 +49,23 @@ public class MainMenuScreen implements Screen {
 		TextButtonStyle textButtonStyle = new TextButtonStyle();
 		textButtonStyle.up = skin.newDrawable("white", Color.DARK_GRAY);
 		textButtonStyle.down = skin.newDrawable("white", Color.DARK_GRAY);
-		textButtonStyle.checked = skin.newDrawable("white", Color.BLUE);
 		textButtonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
 		textButtonStyle.font = skin.getFont("default");
+		textButtonStyle.pressedOffsetX = 1;
+		textButtonStyle.pressedOffsetY = 1;
 		skin.add("default", textButtonStyle);
 
-		TextButton start = new TextButton("Start", skin);
-		table.add(start);
-
+		
+		TextButton start1 = new TextButton("Start", skin);
+		start1.pad(20.0f);
+		table.add(start1).fill();
+		
+		TextButton start2 = new TextButton("End", skin);
+		start2.pad(20.0f);
+		table.row();
+		table.add(start2).fill();
+		
 		stage.addActor(table);
-
-		// Add an image actor. Have to set the size, else it would be the size
-		// of the drawable (which is the 1x1 texture).
-		table.add(new Image(skin.newDrawable("white", Color.RED))).size(64);
-		table.setDebug(true);
 
 		testingFont = game.getFontUtility().getFont("MainMenuFont");
 	}
@@ -75,10 +78,6 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-
-		game.getBatch().begin();
-		testingFont.draw(game.getBatch(), "heyho", 100, 100);
-		game.getBatch().end();
 		stage.act(delta);
 		stage.draw();
 
