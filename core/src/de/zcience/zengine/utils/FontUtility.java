@@ -1,4 +1,4 @@
-package de.zcience.zengine.fonts;
+package de.zcience.zengine.utils;
 
 import java.util.HashMap;
 

@@ -8,7 +8,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 
-import de.zcience.zengine.fonts.FontUtility;
+import de.zcience.zengine.screens.MainMenuScreen;
+import de.zcience.zengine.utils.FontUtility;
 
 public class ZApplication extends Game implements EventListener
 {
@@ -21,11 +22,10 @@ public class ZApplication extends Game implements EventListener
     {
         // Setting LogLevel. For now: Log everything
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
-        
-        // set clear color
-        Gdx.gl.glClearColor(0, 0, 1.0f, 1.0f);
 
-        
+        // set clear color
+        Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+
         batch = new SpriteBatch();
         fontUtility = new FontUtility();
         // Create an AssetManager, create a Loader Class for Screens to make it
@@ -61,16 +61,17 @@ public class ZApplication extends Game implements EventListener
         super.render(); // Important! Needed, because we're extending the gdx
                         // Game class
     }
-    
+
     @Override
     public void dispose()
-    { 
+    {
         super.dispose();
         fontUtility.dispose();
     }
 
-	@Override
-	public boolean handle(Event event) {
-		return false;
-	}
+    @Override
+    public boolean handle(Event event)
+    {
+        return false;
+    }
 }

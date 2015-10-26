@@ -1,4 +1,4 @@
-package de.zcience.zengine;
+package de.zcience.zengine.utils;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -51,7 +51,7 @@ public class LoaderUtil {
 	}
 
 	public static void setSimpleSkinTextButtonStyle(Skin toSet) {
-		setSimpleSkinTextButtonStyle(toSet, Color.DARK_GRAY, Color.DARK_GRAY, Color.LIGHT_GRAY, 1, 1);
+		setSimpleSkinTextButtonStyle(toSet, Color.DARK_GRAY, Color.DARK_GRAY, Color.LIGHT_GRAY, 1, -1);
 	}
 
 	public static void setSimpleSkinTextButtonStyle(Skin toSet, Color up, Color down, Color over, int pressedOffsetX,
