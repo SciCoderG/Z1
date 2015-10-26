@@ -4,12 +4,13 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 
 import de.zcience.zengine.fonts.FontUtility;
 
-public class ZApplication extends Game
+public class ZApplication extends Game implements EventListener
 {
     private SpriteBatch batch;
 
@@ -67,4 +68,9 @@ public class ZApplication extends Game
         super.dispose();
         fontUtility.dispose();
     }
+
+	@Override
+	public boolean handle(Event event) {
+		return false;
+	}
 }
