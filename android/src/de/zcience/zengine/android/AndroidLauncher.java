@@ -1,7 +1,7 @@
 package de.zcience.zengine.android;
 
 import android.os.Bundle;
-import de.zcience.zengine.ZApplication;
+import de.zcience.ZApplication;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;

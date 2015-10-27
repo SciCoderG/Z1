@@ -4,7 +4,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
 
-import de.zcience.zengine.ZApplication;
+import de.zcience.ZApplication;
 
 public class HtmlLauncher extends GwtApplication {
 

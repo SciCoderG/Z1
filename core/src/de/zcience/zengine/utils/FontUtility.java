@@ -25,8 +25,8 @@ public class FontUtility
     private void loadBitMaps()
     {
         // TODO: Load this from a file
-        BitmapFont mainMenuFont = new BitmapFont();
-        fonts.put("MainMenuFont", mainMenuFont);
+		BitmapFont mainMenuFont = new BitmapFont();
+        fonts.put("default", mainMenuFont);
     }
 
     public void addFont(String name, BitmapFont font)
