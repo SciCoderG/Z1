@@ -12,90 +12,112 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import de.zcience.ZApplication;
 import de.zcience.zengine.ui.ChangeListenerToApp;
-import de.zcience.zengine.utils.LoaderUtil;
 
-public class MainMenuScreen implements Screen {
+public class MainMenuScreen implements Screen
+{
 
-	private Stage stage;
+    private Stage stage;
 
-	public MainMenuScreen(ZApplication app) {
+    private ZApplication app;
 
-		this.stage = new Stage(new ScreenViewport(), app.getBatch());
-		Gdx.input.setInputProcessor(stage);
+    public MainMenuScreen(ZApplication app)
+    {
 
-		// Create Main Button Field as a table
-		// TODO: Load from files
-		Table table = new Table();
-		table.setFillParent(true); // adjust to parent size
-		// set the default width and height of the table cells
-		table.defaults().width(100.0f).height(50.0f);
+        this.app = app;
+        this.stage = new Stage(new ScreenViewport(), app.getBatch());
+        Gdx.input.setInputProcessor(stage);
 
-		stage.addActor(table);
+        this.loadAssets();
 
-		// load a simple white skin
-		Skin skin = LoaderUtil.makeSimpleSkin();
+        // Create Main Button Field as a table
+        // TODO: Load from files
+        Table table = new Table();
+        table.setFillParent(true); // adjust to parent size
+        // set the default width and height of the table cells
+        table.defaults().width(100.0f).height(50.0f);
+        stage.addActor(table);
 
-		// Start Button
-		TextButton start1 = new TextButton("Start", skin);
-		start1.addListener(new ChangeListenerToApp(app) {
+        // load a simple white skin
+        Skin skin = app.getAssetManager().get("ui/uiskin.json");
 
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				this.getApplication().switchToScreen("GameScreen");
-			}
-		});
-		table.add(start1);
+        // Start Button
+        TextButton start1 = new TextButton("Start", skin);
+        start1.addListener(new ChangeListenerToApp(app)
+        {
 
-		// End Button
-		TextButton end = new TextButton("End", skin);
-		end.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				Gdx.app.exit();
-			}
-		});
-		table.row();
-		table.add(end);
-	}
+            @Override
+            public void changed(ChangeEvent event, Actor actor)
+            {
+                this.getApplication().switchToScreen("GameScreen");
+            }
+        });
+        table.add(start1);
 
-	@Override
-	public void show() {
-		// TODO Auto-generated method stub
+        // End Button
+        TextButton end = new TextButton("End", skin);
+        end.addListener(new ChangeListener()
+        {
+            @Override
+            public void changed(ChangeEvent event, Actor actor)
+            {
+                Gdx.app.exit();
+            }
+        });
+        table.row();
+        table.add(end);
+    }
 
-	}
+    private void loadAssets()
+    {
+        app.getAssetManager().load("ui/uiskin.json", Skin.class);
+        app.getAssetManager().finishLoading();
+    }
 
-	@Override
-	public void render(float delta) {
-		stage.act(delta);
-		stage.draw();
-	}
+    @Override
+    public void show()
+    {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void resize(int width, int height) {
-		stage.getViewport().update(width, height, true);
-	}
+    }
 
-	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
+    @Override
+    public void render(float delta)
+    {
+        stage.act(delta);
+        stage.draw();
+    }
 
-	}
+    @Override
+    public void resize(int width, int height)
+    {
+        stage.getViewport().update(width, height, true);
+    }
 
-	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
+    @Override
+    public void pause()
+    {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
+    @Override
+    public void resume()
+    {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void dispose() {
-		stage.dispose();
-	}
+    @Override
+    public void hide()
+    {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void dispose()
+    {
+        stage.dispose();
+    }
 
 }
