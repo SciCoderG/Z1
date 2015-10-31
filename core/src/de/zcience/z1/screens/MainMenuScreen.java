@@ -25,7 +25,7 @@ public class MainMenuScreen implements Screen
 
         this.app = app;
         this.stage = new Stage(new ScreenViewport(), app.getBatch());
-        Gdx.input.setInputProcessor(stage);
+        // add stage as inputprocessor
 
         this.loadAssets();
 
@@ -41,10 +41,9 @@ public class MainMenuScreen implements Screen
         Skin skin = app.getAssetManager().get("ui/uiskin.json");
 
         // Start Button
-        TextButton start1 = new TextButton("Start", skin);
+        TextButton start1 = new TextButton("Start", skin, "offset");
         start1.addListener(new ChangeListenerToApp(app)
         {
-
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
@@ -54,7 +53,7 @@ public class MainMenuScreen implements Screen
         table.add(start1);
 
         // End Button
-        TextButton end = new TextButton("End", skin);
+        TextButton end = new TextButton("End", skin, "offset");
         end.addListener(new ChangeListener()
         {
             @Override
@@ -76,8 +75,7 @@ public class MainMenuScreen implements Screen
     @Override
     public void show()
     {
-        // TODO Auto-generated method stub
-
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
@@ -103,15 +101,13 @@ public class MainMenuScreen implements Screen
     @Override
     public void resume()
     {
-        // TODO Auto-generated method stub
-
+        app.getAssetManager().finishLoading();
     }
 
     @Override
     public void hide()
     {
-        // TODO Auto-generated method stub
-
+        Gdx.input.setInputProcessor(null);
     }
 
     @Override

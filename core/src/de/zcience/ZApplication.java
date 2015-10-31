@@ -36,12 +36,15 @@ public class ZApplication extends Game
         this.batch = new SpriteBatch();
         this.fontUtility = new FontUtility();
         this.assetManager = new AssetManager();
+
+        // add Inputprocessor
+
         // TODO: Create an AssetManager, create a Loader Class for Screens to
         // make everything Data-Driven
 
         // add Main Menu
         MainMenuScreen mainMenu = new MainMenuScreen(this);
-        screens.put("MainMenu", mainMenu);
+        screens.put("MenuScreen", mainMenu);
 
         // add Game Screen
         GameScreen gameScreen = new GameScreen(this);
@@ -75,6 +78,7 @@ public class ZApplication extends Game
         }
         else
         {
+            Gdx.app.log("Screen Switch", "Switched to screen: " + screenName);
             this.setScreen(screens.get(screenName));
         }
     }
