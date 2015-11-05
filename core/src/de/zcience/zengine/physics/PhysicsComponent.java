@@ -11,6 +11,8 @@ import com.badlogic.gdx.utils.Pool.Poolable;
  */
 public class PhysicsComponent implements Component, Poolable {
 
+	
+	
 	@Override
 	public void reset() {
 		// TODO Auto-generated method stub

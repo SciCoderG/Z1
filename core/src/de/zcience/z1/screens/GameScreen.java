@@ -3,6 +3,8 @@ package de.zcience.z1.screens;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import de.zcience.ZApplication;
 
@@ -12,6 +14,8 @@ public class GameScreen implements Screen {
 
 	private PooledEngine engine;
 	private GameScreenInputProcessor gInputProcessor;
+	
+	private ScreenViewport viewport;
 
 	public GameScreen(ZApplication app) {
 		this.app = app;
@@ -22,7 +26,8 @@ public class GameScreen implements Screen {
 		// Set inputprocessor
 		this.gInputProcessor = new GameScreenInputProcessor(app);
 
-		
+		// Create Viewport
+		this.viewport = new ScreenViewport();
 	}
 
 	@Override
