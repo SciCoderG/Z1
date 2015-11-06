@@ -2,17 +2,8 @@ package de.zcience.zengine.physics;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
-/**
- * Component with the Box2d-body for the entity
- * 
- * @author David_000
- *
- */
 public class PhysicsComponent implements Component, Poolable
 {
 
@@ -20,32 +11,11 @@ public class PhysicsComponent implements Component, Poolable
 
     private float angle, angularVelocity;
 
-    private Body body;
-
-    private PhysicsSystem system;
-
-    /**
-     * initialises the physics-body
-     * 
-     * @param bodyDef
-     *            Box2D body definition
-     * @param system
-     *            PhysicsSystem
-     * @param entity
-     *            Entity to which the Component is added
-     */
-    public void init(BodyDef bodyDef, PhysicsSystem system)
+    @Override
+    public void reset()
     {
-        this.system = system;
-        if (body != null)
-        {
-            reset();
-        }
-        body = system.getWorld().createBody(bodyDef);
-        this.position = body.getPosition();
-        this.linearVelocity = body.getLinearVelocity();
-        this.angle = body.getAngle();
-        this.angularVelocity = body.getAngularVelocity();
+        angle = angularVelocity = 0.0f;
+        position = linearVelocity = null;
     }
 
     /**
@@ -60,38 +30,6 @@ public class PhysicsComponent implements Component, Poolable
     {
         this.position = newPosition;
         this.angle = newAngle;
-    }
-
-    /**
-     * Creates a fixture for the Box2D body and sets the user data automatically
-     * to the component
-     * 
-     * @param fixtureDef
-     * @return
-     */
-    public Fixture createFixture(PhysicsFixtureDef fixtureDef)
-    {
-        Fixture fixture = body.createFixture(fixtureDef);
-        fixture.setUserData(this);
-        return fixture;
-    }
-
-    /**
-     * Get the Box2d body for more information
-     * 
-     * @return
-     */
-    public Body getBody()
-    {
-        return body;
-    }
-
-    @Override
-    public void reset()
-    {
-        system.getWorld().destroyBody(body);
-        body = null;
-        system = null;
     }
 
     public Vector2 getPosition()
@@ -133,5 +71,4 @@ public class PhysicsComponent implements Component, Poolable
     {
         this.angularVelocity = angularVelocity;
     }
-
 }
