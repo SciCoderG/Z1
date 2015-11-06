@@ -11,8 +11,11 @@ public class DesktopLauncher
     {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.title = "z1";
-        config.width = 480;
+        config.width = 600;
         config.height = config.width * 9 / 16;
+        config.foregroundFPS = 0;
+        config.backgroundFPS = 30;
+        config.vSyncEnabled = false;
         new LwjglApplication(new ZApplication(), config);
     }
 }
