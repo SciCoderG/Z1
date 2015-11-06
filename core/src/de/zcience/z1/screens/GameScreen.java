@@ -4,7 +4,6 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -25,14 +24,18 @@ public class GameScreen implements Screen
 
     private GameScreenInputProcessor gInputProcessor;
 
-    private ScreenViewport viewport;
-
-    private OrthographicCamera camera;
-
     private LevelLoader levelLoader;
+
+    private CameraController cameraController;
 
     private Box2DDebugRenderer debugRenderer;
 
+    /**
+     * TODO: Remove all the unorganized crap into nice, readable and
+     * understandable methods :)
+     * 
+     * @param app
+     */
     public GameScreen(ZApplication app)
     {
         this.app = app;
@@ -45,9 +48,8 @@ public class GameScreen implements Screen
         this.gInputProcessor = new GameScreenInputProcessor(app, this);
 
         // Create Viewport
-        this.camera = new OrthographicCamera();
-        this.viewport = new ScreenViewport(camera);
-        this.viewport.setUnitsPerPixel(Constants.B2D_UNITS_PER_PIXEL);
+        ScreenViewport viewport = new ScreenViewport();
+        viewport.setUnitsPerPixel(Constants.B2D_UNITS_PER_PIXEL);
 
         // Create Systems
         PhysicsSystem pSystem = new PhysicsSystem();
@@ -66,9 +68,9 @@ public class GameScreen implements Screen
         EntityCreator.setEngine(engine);
         Entity player = EntityCreator.createPlayer(5.0f, 5.0f);
 
-        CameraController camController = new CameraController(viewport);
-        camController.setTarget(player);
-        RenderingSystem rSystem = new RenderingSystem(app, levelLoader, camController);
+        cameraController = new CameraController(viewport);
+        cameraController.setTarget(player);
+        RenderingSystem rSystem = new RenderingSystem(app, levelLoader, cameraController);
         engine.addSystem(rSystem);
 
         // TODO: get rid of debug related stuff
@@ -88,13 +90,13 @@ public class GameScreen implements Screen
     public void render(float delta)
     {
         engine.update(delta);
-        debugRenderer.render(engine.getSystem(PhysicsSystem.class).getWorld(), camera.combined);
+        debugRenderer.render(engine.getSystem(PhysicsSystem.class).getWorld(), cameraController.getCamera().combined);
     }
 
     @Override
     public void resize(int width, int height)
     {
-        viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        cameraController.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
     @Override
@@ -130,6 +132,16 @@ public class GameScreen implements Screen
     public void setLevelLoader(LevelLoader levelLoader)
     {
         this.levelLoader = levelLoader;
+    }
+
+    public CameraController getCameraController()
+    {
+        return cameraController;
+    }
+
+    public void setCameraController(CameraController cameraController)
+    {
+        this.cameraController = cameraController;
     }
 
 }

@@ -2,6 +2,7 @@ package de.zcience.zengine.utils;
 
 import com.badlogic.ashley.core.ComponentMapper;
 
+import de.zcience.zengine.input.ButtonControlledComponent;
 import de.zcience.zengine.physics.Box2DComponent;
 import de.zcience.zengine.physics.PhysicsComponent;
 
@@ -17,5 +18,8 @@ public class ZComponentMapper
     public static final ComponentMapper<Box2DComponent> box2D = ComponentMapper.getFor(Box2DComponent.class);
 
     public static final ComponentMapper<PhysicsComponent> physics = ComponentMapper.getFor(PhysicsComponent.class);
+    
+    public static final ComponentMapper<ButtonControlledComponent> input = ComponentMapper.getFor(ButtonControlledComponent.class);
+
 
 }

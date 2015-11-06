@@ -1,15 +1,30 @@
 package de.zcience.z1.screens;
 
-import com.badlogic.gdx.InputProcessor;
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputProcessor;
 
 import de.zcience.ZApplication;
+import de.zcience.zengine.input.ZKeyboardListener;
+import de.zcience.zengine.input.ZMouseListener;
 
+/**
+ * This is a simpliefied version.
+ * 
+ * @author Zcience
+ *
+ */
 public class GameScreenInputProcessor implements InputProcessor
 {
 
     private ZApplication app;
+
     private GameScreen gameScreen;
+
+    private ArrayList<ZKeyboardListener> keyboardListener = new ArrayList<ZKeyboardListener>();
+
+    private ArrayList<ZMouseListener> mouseListener = new ArrayList<ZMouseListener>();
 
     public GameScreenInputProcessor(ZApplication app, GameScreen gameScreen)
     {
@@ -20,66 +35,95 @@ public class GameScreenInputProcessor implements InputProcessor
     @Override
     public boolean keyDown(int keycode)
     {
-        // TODO Auto-generated method stub
-        return false;
+        boolean handled = false;
+        for (ZKeyboardListener l : keyboardListener)
+        {
+            handled = handled || l.keyDown(keycode);
+        }
+        return handled;
     }
 
     @Override
     public boolean keyUp(int keycode)
     {
-        boolean caught = false;
+        boolean handled = false;
         switch (keycode)
         {
             case Keys.ESCAPE:
                 app.switchToScreen("MenuScreen");
-                caught = true;
+                handled = true;
                 break;
 
             default:
                 break;
         }
-        return caught;
+        for (ZKeyboardListener l : keyboardListener)
+        {
+            handled = handled || l.keyDown(keycode);
+        }
+        return handled;
+
     }
 
     @Override
     public boolean keyTyped(char keycode)
     {
-       return false;
+        return false;
     }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
-        // TODO Auto-generated method stub
-        return false;
+        boolean handled = false;
+        for (ZMouseListener l : mouseListener)
+        {
+            handled = handled || l.touchDown(screenX, screenY, pointer, button);
+        }
+        return handled;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button)
     {
-        // TODO Auto-generated method stub
-        return false;
+        boolean handled = false;
+        for (ZMouseListener l : mouseListener)
+        {
+            handled = handled || l.touchUp(screenX, screenY, pointer, button);
+        }
+        return handled;
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer)
     {
-        // TODO Auto-generated method stub
-        return false;
+        boolean handled = false;
+        for (ZMouseListener l : mouseListener)
+        {
+            handled = handled || l.touchDragged(screenX, screenY, pointer);
+        }
+        return handled;
     }
 
     @Override
     public boolean mouseMoved(int screenX, int screenY)
     {
-        // TODO Auto-generated method stub
-        return false;
+        boolean handled = false;
+        for (ZMouseListener l : mouseListener)
+        {
+            handled = handled || l.mouseMoved(screenX, screenY);
+        }
+        return handled;
     }
 
     @Override
     public boolean scrolled(int amount)
     {
-        // TODO Auto-generated method stub
-        return false;
+        boolean handled = false;
+        for (ZMouseListener l : mouseListener)
+        {
+            handled = handled || l.scrolled(amount);
+        }
+        return handled;
     }
 
 }
