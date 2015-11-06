@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Fixture;
 
 import de.zcience.zengine.physics.PhysicsBodyDef;
+import de.zcience.zengine.physics.PhysicsComponent;
 import de.zcience.zengine.physics.Box2DComponent;
 import de.zcience.zengine.physics.PhysicsFixtureDef;
 import de.zcience.zengine.physics.PhysicsSystem;
@@ -40,43 +41,46 @@ public class EntityCreator
         // textureComponent.height = textureComponent.texture.getRegionHeight();
         // entity.add(textureComponent);
 
+        PhysicsComponent pComp = engine.createComponent(PhysicsComponent.class);
+        entity.add(pComp);
+
         /*
-         * PhysicsBody
+         * Box2D body
          */
         // float width = textureComponent.width;
         // float height = textureComponent.height;
         float width = 5.0f;
         float height = 5.0f;
 
-        Box2DComponent physicsBody = engine.createComponent(Box2DComponent.class);
-        PhysicsBodyDef bodyDef = new PhysicsBodyDef(BodyType.DynamicBody, physicsSystem).fixedRotation(true).position(x, y).gravityScale(10.0f);
+        Box2DComponent box2D = engine.createComponent(Box2DComponent.class);
+        PhysicsBodyDef bodyDef = new PhysicsBodyDef(BodyType.DynamicBody, physicsSystem).fixedRotation(true).position(x, y).gravityScale(0.0f);
 
-        physicsBody.init(bodyDef, physicsSystem);
+        box2D.init(bodyDef, physicsSystem);
 
         // Head
         PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height * 0.12f, new Vector2(0, height * 0.25f)).friction(0).category(PLAYER).mask(WORLDOBJECT);
 
-        Fixture fixture = physicsBody.createFixture(fixtureDef);
-        fixture.setUserData(physicsBody);
+        Fixture fixture = box2D.createFixture(fixtureDef);
+        fixture.setUserData(box2D);
 
         // middle
         fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeBox(width * 0.2f, height * 0.6f, new Vector2(0, -height * 0.1f), 0).friction(0).category(PLAYER).mask(WORLDOBJECT);
-        fixture = physicsBody.createFixture(fixtureDef);
-        fixture.setUserData(physicsBody);
+        fixture = box2D.createFixture(fixtureDef);
+        fixture.setUserData(box2D);
 
         // bottom
         fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height * 0.12f, new Vector2(0, -height * 0.4f)).friction(0).category(PLAYER).mask(WORLDOBJECT);
 
-        fixture = physicsBody.createFixture(fixtureDef);
-        fixture.setUserData(physicsBody);
+        fixture = box2D.createFixture(fixtureDef);
+        fixture.setUserData(box2D);
 
         // jumpsensor
         fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height / 10.0f, new Vector2(0, -height * 0.5f)).sensor(true).category(PLAYER).mask(WORLDOBJECT);
 
-        fixture = physicsBody.createFixture(fixtureDef);
+        fixture = box2D.createFixture(fixtureDef);
         fixture.setUserData("Jump");
 
-        entity.add(physicsBody);
+        entity.add(box2D);
 
         // InputComponent
         // InputComponent inputC = engine.createComponent(InputComponent.class);
@@ -96,11 +100,11 @@ public class EntityCreator
         // movementComponent.speed = 4.0f;
         // entity.add(movementComponent);
 
-//        // PlayerComponent
-//        entity.add(engine.createComponent(PlayerComponent.class));
-//
-//        // JumpComponent
-//        entity.add(engine.createComponent(JumpComponent.class));
+        // // PlayerComponent
+        // entity.add(engine.createComponent(PlayerComponent.class));
+        //
+        // // JumpComponent
+        // entity.add(engine.createComponent(JumpComponent.class));
 
         // LightComponent
         // LightComponent lightCompo = engine

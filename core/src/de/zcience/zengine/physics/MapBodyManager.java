@@ -29,7 +29,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonValue.JsonIterator;
-import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.ObjectMap;
 
 /**
@@ -48,213 +47,233 @@ import com.badlogic.gdx.utils.ObjectMap;
  * @endcode In case no material property is found, it'll get a default one.
  *
  */
-public class MapBodyManager {
-	private Logger logger;
-	private World world;
-	private float units;
-	private Array<Body> bodies = new Array<Body>();
-	private ObjectMap<String, FixtureDef> materials = new ObjectMap<String, FixtureDef>();
+public class MapBodyManager
+{
+    private World world;
 
-	/**
-	 * @param world
-	 *            box2D world to work with.
-	 * @param unitsPerPixel
-	 *            conversion ratio from pixel units to box2D metres.
-	 * @param materialsFile
-	 *            json file with specific physics properties to be assigned to
-	 *            newly created bodies.
-	 * @param loggingLevel
-	 *            verbosity of the embedded logger.
-	 */
-	public MapBodyManager(World world, float unitsPerPixel, FileHandle materialsFile, int loggingLevel) {
-		logger = new Logger("MapBodyManager", loggingLevel);
-		logger.info("initialising");
+    private float units;
 
-		this.world = world;
-		this.units = unitsPerPixel;
+    private Array<Body> bodies = new Array<Body>();
 
-		FixtureDef defaultFixture = new FixtureDef();
-		defaultFixture.density = 1.0f;
-		defaultFixture.friction = 0.8f;
-		defaultFixture.restitution = 0.0f;
+    private ObjectMap<String, FixtureDef> materials = new ObjectMap<String, FixtureDef>();
 
-		materials.put("default", defaultFixture);
+    /**
+     * @param world
+     *            box2D world to work with.
+     * @param unitsPerPixel
+     *            conversion ratio from pixel units to box2D metres.
+     * @param materialsFile
+     *            json file with specific physics properties to be assigned to
+     *            newly created bodies.
+     * @param loggingLevel
+     *            verbosity of the embedded logger.
+     */
+    public MapBodyManager(World world, float unitsPerPixel, FileHandle materialsFile, int loggingLevel)
+    {
+        this.world = world;
+        this.units = 1.0f / unitsPerPixel;
 
-		if (materialsFile != null) {
-			loadMaterialsFile(materialsFile);
-		}
-	}
+        loadMaterialsFile(materialsFile);
 
-	/**
-	 * @param map
-	 *            will use the "physics" layer of this map to look for shapes in
-	 *            order to create the static bodies.
-	 */
-	public void createPhysics(Map map) {
-		createPhysics(map, "physics");
-	}
+    }
 
-	/**
-	 * @param map
-	 *            map to be used to create the static bodies.
-	 * @param layerName
-	 *            name of the layer that contains the shapes.
-	 */
-	public void createPhysics(Map map, String layerName) {
-		MapLayer layer = map.getLayers().get(layerName);
+    /**
+     * @param map
+     *            will use the "physics" layer of this map to look for shapes in
+     *            order to create the static bodies.
+     */
+    public void createPhysics(Map map)
+    {
+        createPhysics(map, "physics");
+    }
 
-		if (layer == null) {
-			logger.error("Layer " + layerName + " does not exist");
-			return;
-		}
+    /**
+     * @param map
+     *            map to be used to create the static bodies.
+     * @param layerName
+     *            name of the layer that contains the shapes.
+     */
+    public void createPhysics(Map map, String layerName)
+    {
+        MapLayer layer = map.getLayers().get(layerName);
 
-		MapObjects objects = layer.getObjects();
-		Iterator<MapObject> objectIt = objects.iterator();
+        if (layer == null)
+        {
+            Gdx.app.error("MapBodyManager: ", "Layer " + layerName + " does not exist");
+            return;
+        }
 
-		while (objectIt.hasNext()) {
-			MapObject object = objectIt.next();
+        MapObjects objects = layer.getObjects();
+        Iterator<MapObject> objectIt = objects.iterator();
 
-			if (object instanceof TextureMapObject) {
-				continue;
-			}
-			
-			Shape shape;
-			BodyDef bodyDef = new BodyDef();
-			bodyDef.type = BodyDef.BodyType.StaticBody;
+        while (objectIt.hasNext())
+        {
+            MapObject object = objectIt.next();
 
-			if (object instanceof RectangleMapObject) {
-				RectangleMapObject rectangle = (RectangleMapObject) object;
-				shape = getRectangle(rectangle);
-				Gdx.app.log("MapBodyManager", "Loaded RectangleObject: " + rectangle.getRectangle());
-			} else if (object instanceof PolygonMapObject) {
-				shape = getPolygon((PolygonMapObject) object);
-			} else if (object instanceof PolylineMapObject) {
-				shape = getPolyline((PolylineMapObject) object);
-			} else if (object instanceof CircleMapObject) {
-				shape = getCircle((CircleMapObject) object);
-			} else {
-				logger.error("Shape not supported: " + object);
-				continue;
-			}
+            if (object instanceof TextureMapObject)
+            {
+                continue;
+            }
 
-			MapProperties properties = object.getProperties();
-			String material = properties.get("material", "default", String.class);
-			FixtureDef fixtureDef = materials.get(material);
+            Shape shape;
+            BodyDef bodyDef = new BodyDef();
+            bodyDef.type = BodyDef.BodyType.StaticBody;
 
-			bodyDef.position.set(properties.get("x", Float.class), properties.get("y", Float.class));
+            if (object instanceof RectangleMapObject)
+            {
+                RectangleMapObject rectangle = (RectangleMapObject) object;
+                shape = getRectangle(rectangle);
+                //Gdx.app.log("MapBodyManager", "Loaded RectangleObject: " + rectangle.getRectangle());
+            }
+            else if (object instanceof PolygonMapObject)
+            {
+                shape = getPolygon((PolygonMapObject) object);
+            }
+            else if (object instanceof PolylineMapObject)
+            {
+                shape = getPolyline((PolylineMapObject) object);
+            }
+            else if (object instanceof CircleMapObject)
+            {
+                shape = getCircle((CircleMapObject) object);
+            }
+            else
+            {
+                Gdx.app.error("MapBodyManager:", "Shape not supported: " + object);
+                continue;
+            }
 
-			if (fixtureDef == null) {
-				logger.error("Material does not exist: " + material + " ,using default");
-				fixtureDef = materials.get("default");
-			}
+            MapProperties properties = object.getProperties();
+            String material = properties.get("material", "default", String.class);
+            FixtureDef fixtureDef = materials.get(material);
 
-			fixtureDef.shape = shape;
-			// fixtureDef.filter.categoryBits =
-			// Env.game.getCategoryBitsManager().getCategoryBits("level");
+            if (fixtureDef == null)
+            {
+                Gdx.app.error("MapBodyManager:", "Material does not exist: " + material + " ,using default");
+                fixtureDef = materials.get("default");
+            }
 
-			Body body = world.createBody(bodyDef);
-			body.createFixture(fixtureDef);
+            fixtureDef.shape = shape;
+            // fixtureDef.filter.categoryBits =
+            // Env.game.getCategoryBitsManager().getCategoryBits("level");
 
-			bodies.add(body);
+            Body body = world.createBody(bodyDef);
+            body.createFixture(fixtureDef);
 
-			fixtureDef.shape = null;
-			shape.dispose();
-		}
-	}
+            bodies.add(body);
 
-	/**
-	 * Destroys every static body that has been created using the manager.
-	 */
-	public void destroyPhysics() {
-		for (Body body : bodies) {
-			world.destroyBody(body);
-		}
+            fixtureDef.shape = null;
+            shape.dispose();
+        }
+    }
 
-		bodies.clear();
-	}
+    /**
+     * Destroys every body that has been created using the manager.
+     */
+    public void destroyPhysics()
+    {
+        for (Body body : bodies)
+        {
+            world.destroyBody(body);
+        }
 
-	private void loadMaterialsFile(FileHandle materialsFile) {
-		logger.info("adding default material");
+        bodies.clear();
+    }
 
-		FixtureDef fixtureDef = new FixtureDef();
-		fixtureDef.density = 1.0f;
-		fixtureDef.friction = 1.0f;
-		fixtureDef.restitution = 0.0f;
-		materials.put("default", fixtureDef);
+    private void loadMaterialsFile(FileHandle materialsFile)
+    {
+        Gdx.app.log("MapBodyManager: ", "adding default material");
 
-		logger.info("loading materials file");
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.density = 1.0f;
+        fixtureDef.friction = 1.0f;
+        fixtureDef.restitution = 0.0f;
+        materials.put("default", fixtureDef);
 
-		try {
-			JsonReader reader = new JsonReader();
-			JsonValue root = reader.parse(materialsFile);
-			JsonIterator materialIt = root.iterator();
+        Gdx.app.log("MapBodyManager: ", "loading materials file");
 
-			while (materialIt.hasNext()) {
-				JsonValue materialValue = materialIt.next();
+        try
+        {
+            JsonReader reader = new JsonReader();
+            JsonValue root = reader.parse(materialsFile);
+            JsonIterator materialIt = root.iterator();
 
-				if (!materialValue.has("name")) {
-					logger.error("material without name");
-					continue;
-				}
+            while (materialIt.hasNext())
+            {
+                JsonValue materialValue = materialIt.next();
 
-				String name = materialValue.getString("name");
+                if (!materialValue.has("name"))
+                {
+                    Gdx.app.error("MapBodyManager: ", "material without name");
+                    continue;
+                }
 
-				fixtureDef = new FixtureDef();
-				fixtureDef.density = materialValue.getFloat("density", 1.0f);
-				fixtureDef.friction = materialValue.getFloat("friction", 1.0f);
-				fixtureDef.restitution = materialValue.getFloat("restitution", 0.0f);
-				logger.info("adding material " + name);
-				materials.put(name, fixtureDef);
-			}
+                String name = materialValue.getString("name");
 
-		} catch (Exception e) {
-			logger.error("error loading " + materialsFile.name() + " " + e.getMessage());
-		}
-	}
+                fixtureDef = new FixtureDef();
+                fixtureDef.density = materialValue.getFloat("density", 1.0f);
+                fixtureDef.friction = materialValue.getFloat("friction", 1.0f);
+                fixtureDef.restitution = materialValue.getFloat("restitution", 0.0f);
+                Gdx.app.log("MapBodyManager: ", "adding material " + name);
+                materials.put(name, fixtureDef);
+            }
 
-	private Shape getRectangle(RectangleMapObject rectangleObject) {
-		Rectangle rectangle = rectangleObject.getRectangle();
-		PolygonShape polygon = new PolygonShape();
-		Vector2 size = new Vector2((rectangle.x + rectangle.width * 0.5f) / units,
-				(rectangle.y + rectangle.height * 0.5f) / units);
-		polygon.setAsBox(rectangle.width * 0.5f / units, rectangle.height * 0.5f / units, size, 0.0f);
-		return polygon;
-	}
+        }
+        catch (Exception e)
+        {
+            Gdx.app.error("MapBodyManager: ", "error loading " + materialsFile.name() + " " + e.getMessage());
+        }
+    }
 
-	private Shape getCircle(CircleMapObject circleObject) {
-		Circle circle = circleObject.getCircle();
-		CircleShape circleShape = new CircleShape();
-		circleShape.setRadius(circle.radius / units);
-		circleShape.setPosition(new Vector2(circle.x / units, circle.y / units));
-		return circleShape;
-	}
+    private Shape getRectangle(RectangleMapObject rectangleObject)
+    {
+        Rectangle rectangle = rectangleObject.getRectangle();
+        PolygonShape polygon = new PolygonShape();
+        Vector2 size = new Vector2((rectangle.x + rectangle.width * 0.5f) / units, (rectangle.y + rectangle.height * 0.5f) / units);
+        Gdx.app.log("MapBodyManager", "RectangleObject: with size: " + size);
+        polygon.setAsBox(rectangle.width * 0.5f / units, rectangle.height * 0.5f / units, size, 0.0f);
+        return polygon;
+    }
 
-	private Shape getPolygon(PolygonMapObject polygonObject) {
-		PolygonShape polygon = new PolygonShape();
-		float[] vertices = polygonObject.getPolygon().getTransformedVertices();
+    private Shape getCircle(CircleMapObject circleObject)
+    {
+        Circle circle = circleObject.getCircle();
+        CircleShape circleShape = new CircleShape();
+        circleShape.setRadius(circle.radius / units);
+        circleShape.setPosition(new Vector2(circle.x / units, circle.y / units));
+        return circleShape;
+    }
 
-		float[] worldVertices = new float[vertices.length];
+    private Shape getPolygon(PolygonMapObject polygonObject)
+    {
+        PolygonShape polygon = new PolygonShape();
+        float[] vertices = polygonObject.getPolygon().getTransformedVertices();
 
-		for (int i = 0; i < vertices.length; ++i) {
-			worldVertices[i] = vertices[i] / units;
-		}
+        float[] worldVertices = new float[vertices.length];
 
-		polygon.set(worldVertices);
-		return polygon;
-	}
+        for (int i = 0; i < vertices.length; ++i)
+        {
+            worldVertices[i] = vertices[i] / units;
+        }
 
-	private Shape getPolyline(PolylineMapObject polylineObject) {
-		float[] vertices = polylineObject.getPolyline().getTransformedVertices();
-		Vector2[] worldVertices = new Vector2[vertices.length / 2];
+        polygon.set(worldVertices);
+        return polygon;
+    }
 
-		for (int i = 0; i < vertices.length / 2; ++i) {
-			worldVertices[i] = new Vector2();
-			worldVertices[i].x = vertices[i * 2] / units;
-			worldVertices[i].y = vertices[i * 2 + 1] / units;
-		}
+    private Shape getPolyline(PolylineMapObject polylineObject)
+    {
+        float[] vertices = polylineObject.getPolyline().getTransformedVertices();
+        Vector2[] worldVertices = new Vector2[vertices.length / 2];
 
-		ChainShape chain = new ChainShape();
-		chain.createChain(worldVertices);
-		return chain;
-	}
+        for (int i = 0; i < vertices.length / 2; ++i)
+        {
+            worldVertices[i] = new Vector2();
+            worldVertices[i].x = vertices[i * 2] / units;
+            worldVertices[i].y = vertices[i * 2 + 1] / units;
+        }
+
+        ChainShape chain = new ChainShape();
+        chain.createChain(worldVertices);
+        return chain;
+    }
 }

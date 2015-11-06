@@ -9,83 +9,87 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 import de.zcience.ZApplication;
 import de.zcience.zengine.level.LevelLoader;
 import de.zcience.zengine.utils.Constants;
 
-public class RenderingSystem extends IteratingSystem {
+public class RenderingSystem extends IteratingSystem
+{
 
-	private OrthogonalTiledMapRenderer tiledMapRenderer;
-	private LevelLoader levelLoader;
-	private OrthographicCamera camera;
-	private Viewport viewport;
-	private Stage stage;
-	private ZApplication app;
+    private OrthogonalTiledMapRenderer tiledMapRenderer;
 
-	@SuppressWarnings("unchecked")
-	public RenderingSystem(ZApplication app, LevelLoader levelLoader, Viewport viewport) {
-		super(Family.all().get());
-		this.app = app;
-		this.levelLoader = levelLoader;
+    private LevelLoader levelLoader;
 
-		this.viewport = viewport;
-		this.camera = (OrthographicCamera) viewport.getCamera();
+    private Stage stage;
 
-		// resizing the stage viewport will happen automatically, because
-		// gamescreen and renderingsystem is using the same viewport
-		this.stage = new Stage(viewport, app.getBatch());
+    private ZApplication app;
 
-		Skin skin = app.getAssetManager().get("ui/uiskin.json");
+    private CameraController camController;
 
-	}
+    @SuppressWarnings("unchecked")
+    public RenderingSystem(ZApplication app, LevelLoader levelLoader, CameraController camController)
+    {
+        super(Family.all().get());
+        this.app = app;
+        this.levelLoader = levelLoader;
+        this.camController = camController;
 
-	@Override
-	public void addedToEngine(Engine engine) {
-		this.tiledMapRenderer = new OrthogonalTiledMapRenderer(this.levelLoader.getCurrentMap(),
-				Constants.B2D_UNITS_PER_PIXEL, this.app.getBatch());
-		super.addedToEngine(engine);
-	}
+        // resizing the stage viewport will happen automatically, because
+        // gamescreen and renderingsystem is using the same viewport
+        this.stage = new Stage(camController.getViewport(), app.getBatch());
 
-	@Override
-	public void update(float deltaTime) {
+        Skin skin = app.getAssetManager().get("ui/uiskin.json");
 
-		tiledMapRenderer.setView(camera);
-		//tiledMapRenderer.render(); // TODO: Get the layer order right!
-		super.update(deltaTime);
-		//stage.draw();
-	}
+    }
 
-	@Override
-	protected void processEntity(Entity entity, float deltaTime) {
-		// TODO Auto-generated method stub
+    @Override
+    public void addedToEngine(Engine engine)
+    {
+        this.tiledMapRenderer = new OrthogonalTiledMapRenderer(this.levelLoader.getCurrentMap(), Constants.B2D_UNITS_PER_PIXEL, this.app.getBatch());
+        super.addedToEngine(engine);
+    }
 
-	}
+    @Override
+    public void update(float deltaTime)
+    {
+        camController.update(deltaTime);
+        tiledMapRenderer.setView(camController.getCamera());
+        tiledMapRenderer.render(); // TODO: Get the layer order right!
+        super.update(deltaTime);
+        // stage.draw();
+    }
 
-	public OrthogonalTiledMapRenderer getTiledMapRenderer() {
-		return tiledMapRenderer;
-	}
+    @Override
+    protected void processEntity(Entity entity, float deltaTime)
+    {
+        // TODO Auto-generated method stub
 
-	public void setTiledMapRenderer(OrthogonalTiledMapRenderer tiledMapRenderer) {
-		this.tiledMapRenderer = tiledMapRenderer;
-	}
+    }
 
-	public OrthographicCamera getCamera() {
-		return camera;
-	}
+    public OrthogonalTiledMapRenderer getTiledMapRenderer()
+    {
+        return tiledMapRenderer;
+    }
 
-	public void setCamera(OrthographicCamera camera) {
-		this.camera = camera;
-	}
+    public void setTiledMapRenderer(OrthogonalTiledMapRenderer tiledMapRenderer)
+    {
+        this.tiledMapRenderer = tiledMapRenderer;
+    }
 
-	/**
-	 * Needed, if you want to render the new map instead of the old
-	 * 
-	 * @param map
-	 */
-	public void setMap(TiledMap map) {
-		tiledMapRenderer.setMap(map);
-	}
+    public OrthographicCamera getCamera()
+    {
+        return camController.getCamera();
+    }
+
+    /**
+     * Needed, if you want to render the new map instead of the old
+     * 
+     * @param map
+     */
+    public void setMap(TiledMap map)
+    {
+        tiledMapRenderer.setMap(map);
+    }
 
 }

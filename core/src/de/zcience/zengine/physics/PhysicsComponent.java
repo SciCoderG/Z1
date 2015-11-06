@@ -11,6 +11,12 @@ public class PhysicsComponent implements Component, Poolable
 
     private float angle, angularVelocity;
 
+    public PhysicsComponent()
+    {
+        this.position = new Vector2();
+        this.linearVelocity = new Vector2();
+    }
+
     @Override
     public void reset()
     {
