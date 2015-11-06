@@ -2,6 +2,7 @@ package de.zcience.zengine.physics;
 
 import java.util.Iterator;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.MapLayer;
@@ -27,9 +28,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.JsonValue.JsonIterator;
 import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.badlogic.gdx.utils.JsonValue.JsonIterator;
 
 /**
  * @author David Liebemann
@@ -103,7 +104,7 @@ public class MapBodyManager {
 		MapLayer layer = map.getLayers().get(layerName);
 
 		if (layer == null) {
-			logger.error("layer " + layerName + " does not exist");
+			logger.error("Layer " + layerName + " does not exist");
 			return;
 		}
 
@@ -116,7 +117,7 @@ public class MapBodyManager {
 			if (object instanceof TextureMapObject) {
 				continue;
 			}
-
+			
 			Shape shape;
 			BodyDef bodyDef = new BodyDef();
 			bodyDef.type = BodyDef.BodyType.StaticBody;
@@ -124,6 +125,7 @@ public class MapBodyManager {
 			if (object instanceof RectangleMapObject) {
 				RectangleMapObject rectangle = (RectangleMapObject) object;
 				shape = getRectangle(rectangle);
+				Gdx.app.log("MapBodyManager", "Loaded RectangleObject: " + rectangle.getRectangle());
 			} else if (object instanceof PolygonMapObject) {
 				shape = getPolygon((PolygonMapObject) object);
 			} else if (object instanceof PolylineMapObject) {
@@ -131,7 +133,7 @@ public class MapBodyManager {
 			} else if (object instanceof CircleMapObject) {
 				shape = getCircle((CircleMapObject) object);
 			} else {
-				logger.error("non supported shape " + object);
+				logger.error("Shape not supported: " + object);
 				continue;
 			}
 
@@ -139,8 +141,10 @@ public class MapBodyManager {
 			String material = properties.get("material", "default", String.class);
 			FixtureDef fixtureDef = materials.get(material);
 
+			bodyDef.position.set(properties.get("x", Float.class), properties.get("y", Float.class));
+
 			if (fixtureDef == null) {
-				logger.error("material does not exist " + material + " using default");
+				logger.error("Material does not exist: " + material + " ,using default");
 				fixtureDef = materials.get("default");
 			}
 

@@ -7,6 +7,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -16,10 +17,11 @@ import de.zcience.z1.screens.MainMenuScreen;
 public class ZApplication extends Game {
 	private SpriteBatch batch;
 
-
 	private AssetManager assetManager;
 
 	private HashMap<String, Screen> screens = new HashMap<String, Screen>();
+	
+	private FPSLogger fpsLogger = new FPSLogger();
 
 	@Override
 	public void create() {
@@ -52,6 +54,7 @@ public class ZApplication extends Game {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		super.render(); // Important! Needed, because we're extending the gdx
 						// Game class
+		//fpsLogger.log();
 	}
 
 	@Override

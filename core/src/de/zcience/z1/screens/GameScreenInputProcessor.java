@@ -9,10 +9,12 @@ public class GameScreenInputProcessor implements InputProcessor
 {
 
     private ZApplication app;
+    private GameScreen gameScreen;
 
-    public GameScreenInputProcessor(ZApplication app)
+    public GameScreenInputProcessor(ZApplication app, GameScreen gameScreen)
     {
         this.app = app;
+        this.gameScreen = gameScreen;
     }
 
     @Override
