@@ -71,6 +71,8 @@ public class MapBodyManager
     public MapBodyManager(World world, float unitsPerPixel, FileHandle materialsFile, int loggingLevel)
     {
         this.world = world;
+        
+        // This cost me quite a few hours. It is UNITS PER PIXEL, not PIXEL PER UNIT...
         this.units = 1.0f / unitsPerPixel;
 
         loadMaterialsFile(materialsFile);
