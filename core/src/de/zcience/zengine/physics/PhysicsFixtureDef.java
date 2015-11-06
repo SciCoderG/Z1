@@ -1,7 +1,5 @@
 package de.zcience.zengine.physics;
 
-import java.util.List;
-
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -16,13 +14,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 public class PhysicsFixtureDef extends FixtureDef
 {
 
-    private static final Vector2 dummyVector = new Vector2();
-
-    private final PhysicsSystem system;
-
     public PhysicsFixtureDef(PhysicsSystem system)
     {
-        this.system = system;
     }
 
     /** The friction coefficient, usually in the range [0,1]. **/
