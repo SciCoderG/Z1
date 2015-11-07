@@ -1,6 +1,7 @@
 package de.zcience.zengine.physics.components;
 
 import com.badlogic.ashley.core.Component;
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -21,6 +22,7 @@ public class Box2DComponent implements Component, Poolable
 
     private Body body;
 
+    private Entity entity;
     private PhysicsSystem system;
 
     /**
@@ -33,15 +35,16 @@ public class Box2DComponent implements Component, Poolable
      * @param entity
      *            Entity to which the Component is added
      */
-    public void init(BodyDef bodyDef, PhysicsSystem system)
+    public void init(BodyDef bodyDef, PhysicsSystem system, Entity entity)
     {
         this.system = system;
+        this.setEntity(entity);
         if (body != null)
         {
             reset();
         }
         body = system.getWorld().createBody(bodyDef);
-
+        body.setUserData(entity);
     }
 
     /**
@@ -74,6 +77,16 @@ public class Box2DComponent implements Component, Poolable
         system.getWorld().destroyBody(body);
         body = null;
         system = null;
+    }
+
+    public Entity getEntity()
+    {
+        return entity;
+    }
+
+    public void setEntity(Entity entity)
+    {
+        this.entity = entity;
     }
 
 }

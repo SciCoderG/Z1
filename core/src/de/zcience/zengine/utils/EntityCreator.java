@@ -20,8 +20,6 @@ public class EntityCreator
 
     public static short WORLDOBJECT = 0x002;
 
-    public static short HEARTH = 0x004;
-
     public static short PLAYER = 0x006;
 
     private static PooledEngine engine;
@@ -46,29 +44,26 @@ public class EntityCreator
         Box2DComponent box2D = engine.createComponent(Box2DComponent.class);
         PhysicsBodyDef bodyDef = new PhysicsBodyDef(BodyType.DynamicBody, physicsSystem).fixedRotation(true).position(x, y);
 
-        box2D.init(bodyDef, physicsSystem);
+        box2D.init(bodyDef, physicsSystem, entity);
 
         // Head
         PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height * 0.12f, new Vector2(0, height * 0.25f)).friction(0);
 
-        Fixture fixture = box2D.createFixture(fixtureDef);
-        fixture.setUserData(box2D);
+        box2D.createFixture(fixtureDef);
 
         // middle
         fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeBox(width * 0.2f, height * 0.6f, new Vector2(0, -height * 0.1f), 0).friction(0);
-        fixture = box2D.createFixture(fixtureDef);
-        fixture.setUserData(box2D);
+        box2D.createFixture(fixtureDef);
 
         // bottom
         fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height * 0.12f, new Vector2(0, -height * 0.4f));
 
-        fixture = box2D.createFixture(fixtureDef);
-        fixture.setUserData(box2D);
+        box2D.createFixture(fixtureDef);
 
         // jumpsensor
         fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height / 10.0f, new Vector2(0, -height * 0.5f)).sensor(true);
 
-        fixture = box2D.createFixture(fixtureDef);
+        Fixture fixture = box2D.createFixture(fixtureDef);
         fixture.setUserData("Jump");
 
         entity.add(box2D);
