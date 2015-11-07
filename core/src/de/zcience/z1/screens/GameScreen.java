@@ -8,8 +8,10 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import de.zcience.ZApplication;
+import de.zcience.zengine.input.InputSystem;
 import de.zcience.zengine.level.LevelLoader;
-import de.zcience.zengine.physics.PhysicsSystem;
+import de.zcience.zengine.physics.systems.MovementSystem;
+import de.zcience.zengine.physics.systems.PhysicsSystem;
 import de.zcience.zengine.render.CameraController;
 import de.zcience.zengine.render.RenderingSystem;
 import de.zcience.zengine.utils.Constants;
@@ -51,9 +53,16 @@ public class GameScreen implements Screen
         ScreenViewport viewport = new ScreenViewport();
         viewport.setUnitsPerPixel(Constants.B2D_UNITS_PER_PIXEL);
 
+
         // Create Systems
+        InputSystem inputSystem = new InputSystem();
+        gInputProcessor.addKeyboardListener(inputSystem);
+        engine.addSystem(inputSystem);
+
         PhysicsSystem pSystem = new PhysicsSystem();
         engine.addSystem(pSystem);
+        
+        engine.addSystem(new MovementSystem());
 
         // Init levelLoader
         // This is important and stupid, but I don't know yet how to avoid it:
@@ -66,12 +75,15 @@ public class GameScreen implements Screen
         this.levelLoader = new LevelLoader(app.getAssetManager(), engine.getSystem(PhysicsSystem.class).getWorld());
 
         EntityCreator.setEngine(engine);
-        Entity player = EntityCreator.createPlayer(5.0f, 5.0f);
+        float f = 10.0f;
+        Entity player = EntityCreator.createPlayer(f, f);
 
+        
         cameraController = new CameraController(viewport);
         cameraController.setTarget(player);
         RenderingSystem rSystem = new RenderingSystem(app, levelLoader, cameraController);
         engine.addSystem(rSystem);
+        
 
         // TODO: get rid of debug related stuff
         levelLoader.loadMap("maps/test1.tmx");

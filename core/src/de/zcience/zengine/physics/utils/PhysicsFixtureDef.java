@@ -1,10 +1,12 @@
-package de.zcience.zengine.physics;
+package de.zcience.zengine.physics.utils;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+
+import de.zcience.zengine.physics.systems.PhysicsSystem;
 
 /**
  * Easier to use FixtureDefinition of a Box2D fixture

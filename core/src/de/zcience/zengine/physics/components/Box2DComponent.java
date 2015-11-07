@@ -1,10 +1,13 @@
-package de.zcience.zengine.physics;
+package de.zcience.zengine.physics.components;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.utils.Pool.Poolable;
+
+import de.zcience.zengine.physics.systems.PhysicsSystem;
+import de.zcience.zengine.physics.utils.PhysicsFixtureDef;
 
 /**
  * Component with the Box2d-body for the entity. To properly render the body

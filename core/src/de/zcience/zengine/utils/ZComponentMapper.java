@@ -2,9 +2,10 @@ package de.zcience.zengine.utils;
 
 import com.badlogic.ashley.core.ComponentMapper;
 
-import de.zcience.zengine.input.ButtonControlledComponent;
-import de.zcience.zengine.physics.Box2DComponent;
-import de.zcience.zengine.physics.PhysicsComponent;
+import de.zcience.zengine.input.InputComponent;
+import de.zcience.zengine.physics.components.Box2DComponent;
+import de.zcience.zengine.physics.components.PositionComponent;
+import de.zcience.zengine.physics.components.VelocityComponent;
 
 /**
  * Every Component should be registered here, to be able to easily access a
@@ -17,9 +18,12 @@ public class ZComponentMapper
 {
     public static final ComponentMapper<Box2DComponent> box2D = ComponentMapper.getFor(Box2DComponent.class);
 
-    public static final ComponentMapper<PhysicsComponent> physics = ComponentMapper.getFor(PhysicsComponent.class);
+    public static final ComponentMapper<PositionComponent> position = ComponentMapper.getFor(PositionComponent.class);
     
-    public static final ComponentMapper<ButtonControlledComponent> input = ComponentMapper.getFor(ButtonControlledComponent.class);
+    public static final ComponentMapper<VelocityComponent> velocity = ComponentMapper.getFor(VelocityComponent.class);
+
+    
+    public static final ComponentMapper<InputComponent> input = ComponentMapper.getFor(InputComponent.class);
 
 
 }

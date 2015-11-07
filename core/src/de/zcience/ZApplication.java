@@ -54,7 +54,7 @@ public class ZApplication extends Game {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		super.render(); // Important! Needed, because we're extending the gdx
 						// Game class
-		//fpsLogger.log();
+		fpsLogger.log();
 	}
 
 	@Override

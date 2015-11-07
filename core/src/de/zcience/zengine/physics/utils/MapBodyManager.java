@@ -1,4 +1,4 @@
-package de.zcience.zengine.physics;
+package de.zcience.zengine.physics.utils;
 
 import java.util.Iterator;
 

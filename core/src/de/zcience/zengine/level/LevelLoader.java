@@ -8,7 +8,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
-import de.zcience.zengine.physics.MapBodyManager;
+import de.zcience.zengine.physics.utils.MapBodyManager;
 import de.zcience.zengine.utils.Constants;
 
 public class LevelLoader {

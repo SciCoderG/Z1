@@ -15,115 +15,129 @@ import de.zcience.zengine.input.ZMouseListener;
  * @author Zcience
  *
  */
-public class GameScreenInputProcessor implements InputProcessor
-{
+public class GameScreenInputProcessor implements InputProcessor {
 
-    private ZApplication app;
+	private ZApplication app;
 
-    private GameScreen gameScreen;
+	private GameScreen gameScreen;
 
-    private ArrayList<ZKeyboardListener> keyboardListener = new ArrayList<ZKeyboardListener>();
+	private ArrayList<ZKeyboardListener> keyboardListener = new ArrayList<ZKeyboardListener>();
 
-    private ArrayList<ZMouseListener> mouseListener = new ArrayList<ZMouseListener>();
+	private ArrayList<ZMouseListener> mouseListener = new ArrayList<ZMouseListener>();
 
-    public GameScreenInputProcessor(ZApplication app, GameScreen gameScreen)
-    {
-        this.app = app;
-        this.gameScreen = gameScreen;
-    }
+	public GameScreenInputProcessor(ZApplication app, GameScreen gameScreen) {
+		this.app = app;
+		this.gameScreen = gameScreen;
+	}
 
-    @Override
-    public boolean keyDown(int keycode)
-    {
-        boolean handled = false;
-        for (ZKeyboardListener l : keyboardListener)
-        {
-            handled = handled || l.keyDown(keycode);
-        }
-        return handled;
-    }
+	@Override
+	public boolean keyDown(int keycode) {
+		boolean handled = false;
+		for (ZKeyboardListener l : keyboardListener) {
+			handled = handled || l.keyDown(keycode);
+		}
+		return handled;
+	}
 
-    @Override
-    public boolean keyUp(int keycode)
-    {
-        boolean handled = false;
-        switch (keycode)
-        {
-            case Keys.ESCAPE:
-                app.switchToScreen("MenuScreen");
-                handled = true;
-                break;
+	@Override
+	public boolean keyUp(int keycode) {
+		boolean handled = false;
+		switch (keycode) {
+		case Keys.ESCAPE:
+			app.switchToScreen("MenuScreen");
+			handled = true;
+			break;
 
-            default:
-                break;
-        }
-        for (ZKeyboardListener l : keyboardListener)
-        {
-            handled = handled || l.keyDown(keycode);
-        }
-        return handled;
+		default:
+			break;
+		}
+		for (ZKeyboardListener l : keyboardListener) {
+			handled = handled || l.keyUp(keycode);
+		}
+		return handled;
 
-    }
+	}
 
-    @Override
-    public boolean keyTyped(char keycode)
-    {
-        return false;
-    }
+	@Override
+	public boolean keyTyped(char keycode) {
+		return false;
+	}
 
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button)
-    {
-        boolean handled = false;
-        for (ZMouseListener l : mouseListener)
-        {
-            handled = handled || l.touchDown(screenX, screenY, pointer, button);
-        }
-        return handled;
-    }
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		boolean handled = false;
+		for (ZMouseListener l : mouseListener) {
+			handled = handled || l.touchDown(screenX, screenY, pointer, button);
+		}
+		return handled;
+	}
 
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button)
-    {
-        boolean handled = false;
-        for (ZMouseListener l : mouseListener)
-        {
-            handled = handled || l.touchUp(screenX, screenY, pointer, button);
-        }
-        return handled;
-    }
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		boolean handled = false;
+		for (ZMouseListener l : mouseListener) {
+			handled = handled || l.touchUp(screenX, screenY, pointer, button);
+		}
+		return handled;
+	}
 
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer)
-    {
-        boolean handled = false;
-        for (ZMouseListener l : mouseListener)
-        {
-            handled = handled || l.touchDragged(screenX, screenY, pointer);
-        }
-        return handled;
-    }
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		boolean handled = false;
+		for (ZMouseListener l : mouseListener) {
+			handled = handled || l.touchDragged(screenX, screenY, pointer);
+		}
+		return handled;
+	}
 
-    @Override
-    public boolean mouseMoved(int screenX, int screenY)
-    {
-        boolean handled = false;
-        for (ZMouseListener l : mouseListener)
-        {
-            handled = handled || l.mouseMoved(screenX, screenY);
-        }
-        return handled;
-    }
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		boolean handled = false;
+		for (ZMouseListener l : mouseListener) {
+			handled = handled || l.mouseMoved(screenX, screenY);
+		}
+		return handled;
+	}
 
-    @Override
-    public boolean scrolled(int amount)
-    {
-        boolean handled = false;
-        for (ZMouseListener l : mouseListener)
-        {
-            handled = handled || l.scrolled(amount);
-        }
-        return handled;
-    }
+	@Override
+	public boolean scrolled(int amount) {
+		boolean handled = false;
+		for (ZMouseListener l : mouseListener) {
+			handled = handled || l.scrolled(amount);
+		}
+		return handled;
+	}
+
+	public ArrayList<ZKeyboardListener> getKeyboardListener() {
+		return keyboardListener;
+	}
+
+	public void setKeyboardListener(ArrayList<ZKeyboardListener> keyboardListener) {
+		this.keyboardListener = keyboardListener;
+	}
+
+	public ArrayList<ZMouseListener> getMouseListener() {
+		return mouseListener;
+	}
+
+	public void setMouseListener(ArrayList<ZMouseListener> mouseListener) {
+		this.mouseListener = mouseListener;
+	}
+
+	public void addKeyboardListener(ZKeyboardListener l) {
+		keyboardListener.add(l);
+	}
+
+	public void removeKeyboardListener(ZKeyboardListener l) {
+		keyboardListener.remove(l);
+	}
+
+	public void addMouseListener(ZMouseListener l) {
+		mouseListener.add(l);
+	}
+
+	public void removeMouseListener(ZMouseListener l) {
+		mouseListener.remove(l);
+	}
 
 }
