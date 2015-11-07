@@ -27,7 +27,7 @@ public class MovementSystem extends IteratingSystem {
 			if (box2DComp.getBody().getLinearVelocity().x < iComp.getMaxSpeed()
 					&& box2DComp.getBody().getLinearVelocity().x > -iComp.getMaxSpeed()) {
 
-				float xImpulse = iComp.getDirection().x * iComp.getMaxAccel();
+				float xImpulse = iComp.getDirection().x * iComp.getMaxAccel()*deltaTime;
 				Vector2 impulse = new Vector2(xImpulse, 0.0f);
 				box2DComp.getBody().applyLinearImpulse(impulse, box2DComp.getBody().getWorldCenter(), true);
 			}
