@@ -108,6 +108,7 @@ project(":core") {
         compile "net.dermetfan.libgdx-utils:libgdx-utils-box2d:0.13.1"
         compile "net.dermetfan.libgdx-utils:libgdx-utils:0.13.1"
         compile "com.kotcrab.vis:vis-ui:0.8.1"
+        compile "com.underwaterapps.overlap2druntime:overlap2d-runtime-libgdx:0.1.2-SNAPSHOT"
     }
 }
 
