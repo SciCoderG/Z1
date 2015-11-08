@@ -8,10 +8,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.World;
 
+import de.zcience.z1.gameplay.contacts.ZContactListener;
+import de.zcience.z1.gameplay.utils.Constants;
 import de.zcience.zengine.physics.components.Box2DComponent;
 import de.zcience.zengine.physics.components.PositionComponent;
 import de.zcience.zengine.physics.components.VelocityComponent;
-import de.zcience.zengine.utils.Constants;
 import de.zcience.zengine.utils.ZComponentMapper;
 
 /**
@@ -33,6 +34,7 @@ public class PhysicsSystem extends IteratingSystem {
 
 		Box2D.init();
 		this.world = new World(Constants.B2D_GRAVITY, true);
+		world.setContactListener(new ZContactListener());
 	}
 
 	@Override

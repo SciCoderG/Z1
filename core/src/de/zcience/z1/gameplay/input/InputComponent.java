@@ -1,4 +1,4 @@
-package de.zcience.zengine.input;
+package de.zcience.z1.gameplay.input;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.math.Vector2;

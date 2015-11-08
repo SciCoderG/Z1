@@ -29,6 +29,9 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonValue.JsonIterator;
+
+import de.zcience.z1.gameplay.utils.EntityCreator;
+
 import com.badlogic.gdx.utils.ObjectMap;
 
 /**
@@ -156,8 +159,7 @@ public class MapBodyManager
             }
 
             fixtureDef.shape = shape;
-            // fixtureDef.filter.categoryBits =
-            // Env.game.getCategoryBitsManager().getCategoryBits("level");
+            fixtureDef.filter.categoryBits = EntityCreator.WORLDOBJECT;
 
             Body body = world.createBody(bodyDef);
             body.createFixture(fixtureDef);

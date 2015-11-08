@@ -1,4 +1,4 @@
-package de.zcience.zengine.level;
+package de.zcience.z1.gameplay.level;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -8,8 +8,8 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
+import de.zcience.z1.gameplay.utils.Constants;
 import de.zcience.zengine.physics.utils.MapBodyManager;
-import de.zcience.zengine.utils.Constants;
 
 public class LevelLoader {
 
