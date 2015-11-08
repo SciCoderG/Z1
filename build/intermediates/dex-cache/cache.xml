@@ -2,32 +2,11 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Zcience\.gradle\caches\modules-2\files-2.1\com.badlogicgames.ashley\ashley\1.6.0\f7b513df3e52198ecda822eea1674f488d7352a5\ashley-1.6.0.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="f7b513df3e52198ecda822eea1674f488d7352a5">
-        <dex dex="C:\Users\Zcience\Projekte\zengine\Z1\android\build\intermediates\pre-dexed\debug\ashley-1.6.0-a5f271f5feab61cd49c8450c779625a8e53a83fe.jar" />
-    </item>
-    <item
-        jar="C:\Users\Zcience\.gradle\caches\modules-2\files-2.1\net.dermetfan.libgdx-utils\libgdx-utils-box2d\0.13.1\cbc08bd9e488ac53ce9de3692525bec6e38b6811\libgdx-utils-box2d-0.13.1.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="cbc08bd9e488ac53ce9de3692525bec6e38b6811">
-        <dex dex="C:\Users\Zcience\Projekte\zengine\Z1\android\build\intermediates\pre-dexed\debug\libgdx-utils-box2d-0.13.1-5490576a23d5262e745ff3df0b4aea09e16808b0.jar" />
-    </item>
-    <item
         jar="C:\Users\Zcience\.gradle\caches\modules-2\files-2.1\com.kotcrab.vis\vis-ui\0.8.1\7c374d8bdec72628ce692e20d066c28a7bfb691a\vis-ui-0.8.1.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="7c374d8bdec72628ce692e20d066c28a7bfb691a">
         <dex dex="C:\Users\Zcience\Projekte\zengine\Z1\android\build\intermediates\pre-dexed\debug\vis-ui-0.8.1-7167a03661c3a46e1fb9a8c64ffb45d4c8683b4f.jar" />
-    </item>
-    <item
-        jar="C:\Users\Zcience\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-ai\1.6.0\a1a3b25a3485affab88be13ab8c1a920537f7d8c\gdx-ai-1.6.0.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="a1a3b25a3485affab88be13ab8c1a920537f7d8c">
-        <dex dex="C:\Users\Zcience\Projekte\zengine\Z1\android\build\intermediates\pre-dexed\debug\gdx-ai-1.6.0-60206a140ddb7576df6202c7d6ed8d03ab40666b.jar" />
     </item>
     <item
         jar="C:\Users\Zcience\.gradle\caches\modules-2\files-2.1\com.badlogicgames.box2dlights\box2dlights\1.4\3d77ad5b4164fb32fc67e2446e35911bb0aaf0bd\box2dlights-1.4.jar"
@@ -37,6 +16,20 @@
         <dex dex="C:\Users\Zcience\Projekte\zengine\Z1\android\build\intermediates\pre-dexed\debug\box2dlights-1.4-d379a28f4fac21c325e85e659842281d2e1a8471.jar" />
     </item>
     <item
+        jar="C:\Users\Zcience\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-backend-android\1.7.0\d8c0e81a68812893d0bf80cea37fbcba9f23d38b\gdx-backend-android-1.7.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="d8c0e81a68812893d0bf80cea37fbcba9f23d38b">
+        <dex dex="C:\Users\Zcience\Projekte\zengine\Z1\android\build\intermediates\pre-dexed\debug\gdx-backend-android-1.7.0-775332e58aa34dc2812cc8d21cc3e1ea057667d8.jar" />
+    </item>
+    <item
+        jar="C:\Users\Zcience\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-ai\1.6.0\a1a3b25a3485affab88be13ab8c1a920537f7d8c\gdx-ai-1.6.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="a1a3b25a3485affab88be13ab8c1a920537f7d8c">
+        <dex dex="C:\Users\Zcience\Projekte\zengine\Z1\android\build\intermediates\pre-dexed\debug\gdx-ai-1.6.0-60206a140ddb7576df6202c7d6ed8d03ab40666b.jar" />
+    </item>
+    <item
         jar="C:\Users\Zcience\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx\1.7.0\1b08c96132448b5ab9c0cc8dea3e985dcf0166fd\gdx-1.7.0.jar"
         jumboMode="false"
         revision="23.0.1"
@@ -44,11 +37,18 @@
         <dex dex="C:\Users\Zcience\Projekte\zengine\Z1\android\build\intermediates\pre-dexed\debug\gdx-1.7.0-baaec936693061e651c33d768399a8c657264654.jar" />
     </item>
     <item
-        jar="C:\Users\Zcience\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-controllers-android\1.7.0\512fc901640ccb22578616d7b94ec8ac38d67f22\gdx-controllers-android-1.7.0.jar"
+        jar="C:\Users\Zcience\Projekte\zengine\Z1\core\build\libs\core-1.0.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="512fc901640ccb22578616d7b94ec8ac38d67f22">
-        <dex dex="C:\Users\Zcience\Projekte\zengine\Z1\android\build\intermediates\pre-dexed\debug\gdx-controllers-android-1.7.0-10e2e00f3af71879d225da0dc5a2b5eaf3bfa609.jar" />
+        sha1="bd295cd62a4dad74ab6d360194e15c10e4c712fb">
+        <dex dex="C:\Users\Zcience\Projekte\zengine\Z1\android\build\intermediates\pre-dexed\debug\core-1.0-0004375f1fa51c96329cd53e4554197e01582f29.jar" />
+    </item>
+    <item
+        jar="C:\Users\Zcience\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-box2d\1.7.0\a560f1f94b939f2b5ccd4eec752797c3ea6e1c92\gdx-box2d-1.7.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="a560f1f94b939f2b5ccd4eec752797c3ea6e1c92">
+        <dex dex="C:\Users\Zcience\Projekte\zengine\Z1\android\build\intermediates\pre-dexed\debug\gdx-box2d-1.7.0-487b7f464b8566e63f569c4c8a86a0756fd26178.jar" />
     </item>
     <item
         jar="C:\Users\Zcience\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-controllers\1.7.0\2a9fc6b93756eb9377cfa952bd189e21d72f5dde\gdx-controllers-1.7.0.jar"
@@ -65,25 +65,25 @@
         <dex dex="C:\Users\Zcience\Projekte\zengine\Z1\android\build\intermediates\pre-dexed\debug\libgdx-utils-0.13.1-78c2097ccc43e0dc31ac56668b1ca09298600830.jar" />
     </item>
     <item
-        jar="C:\Users\Zcience\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-backend-android\1.7.0\d8c0e81a68812893d0bf80cea37fbcba9f23d38b\gdx-backend-android-1.7.0.jar"
+        jar="C:\Users\Zcience\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-controllers-android\1.7.0\512fc901640ccb22578616d7b94ec8ac38d67f22\gdx-controllers-android-1.7.0.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="d8c0e81a68812893d0bf80cea37fbcba9f23d38b">
-        <dex dex="C:\Users\Zcience\Projekte\zengine\Z1\android\build\intermediates\pre-dexed\debug\gdx-backend-android-1.7.0-775332e58aa34dc2812cc8d21cc3e1ea057667d8.jar" />
+        sha1="512fc901640ccb22578616d7b94ec8ac38d67f22">
+        <dex dex="C:\Users\Zcience\Projekte\zengine\Z1\android\build\intermediates\pre-dexed\debug\gdx-controllers-android-1.7.0-10e2e00f3af71879d225da0dc5a2b5eaf3bfa609.jar" />
     </item>
     <item
-        jar="C:\Users\Zcience\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-box2d\1.7.0\a560f1f94b939f2b5ccd4eec752797c3ea6e1c92\gdx-box2d-1.7.0.jar"
+        jar="C:\Users\Zcience\.gradle\caches\modules-2\files-2.1\net.dermetfan.libgdx-utils\libgdx-utils-box2d\0.13.1\cbc08bd9e488ac53ce9de3692525bec6e38b6811\libgdx-utils-box2d-0.13.1.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="a560f1f94b939f2b5ccd4eec752797c3ea6e1c92">
-        <dex dex="C:\Users\Zcience\Projekte\zengine\Z1\android\build\intermediates\pre-dexed\debug\gdx-box2d-1.7.0-487b7f464b8566e63f569c4c8a86a0756fd26178.jar" />
+        sha1="cbc08bd9e488ac53ce9de3692525bec6e38b6811">
+        <dex dex="C:\Users\Zcience\Projekte\zengine\Z1\android\build\intermediates\pre-dexed\debug\libgdx-utils-box2d-0.13.1-5490576a23d5262e745ff3df0b4aea09e16808b0.jar" />
     </item>
     <item
-        jar="C:\Users\Zcience\Projekte\zengine\Z1\core\build\libs\core-1.0.jar"
+        jar="C:\Users\Zcience\.gradle\caches\modules-2\files-2.1\com.badlogicgames.ashley\ashley\1.6.0\f7b513df3e52198ecda822eea1674f488d7352a5\ashley-1.6.0.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="173067227500d5bdf88de29013b22c382e96e9d0">
-        <dex dex="C:\Users\Zcience\Projekte\zengine\Z1\android\build\intermediates\pre-dexed\debug\core-1.0-0004375f1fa51c96329cd53e4554197e01582f29.jar" />
+        sha1="f7b513df3e52198ecda822eea1674f488d7352a5">
+        <dex dex="C:\Users\Zcience\Projekte\zengine\Z1\android\build\intermediates\pre-dexed\debug\ashley-1.6.0-a5f271f5feab61cd49c8450c779625a8e53a83fe.jar" />
     </item>
 
 </items>
