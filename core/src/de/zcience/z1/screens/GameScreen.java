@@ -16,131 +16,140 @@ import de.zcience.z1.gameplay.utils.Constants;
 import de.zcience.z1.gameplay.utils.EntityCreator;
 import de.zcience.zengine.physics.systems.PhysicsSystem;
 import de.zcience.zengine.render.CameraController;
-import de.zcience.zengine.render.RenderingSystem;
+import de.zcience.zengine.render.systems.RenderingSystem;
 
-public class GameScreen implements Screen {
+public class GameScreen implements Screen
+{
 
-	private ZApplication app;
+    private ZApplication app;
 
-	private PooledEngine engine;
+    private PooledEngine engine;
 
-	private GameScreenInputProcessor gInputProcessor;
+    private GameScreenInputProcessor gInputProcessor;
 
-	private LevelLoader levelLoader;
+    private LevelLoader levelLoader;
 
-	private CameraController cameraController;
+    private CameraController cameraController;
 
-	private Box2DDebugRenderer debugRenderer;
+    private Box2DDebugRenderer debugRenderer;
 
-	/**
-	 * TODO: Remove all the unorganized crap into nice, readable and
-	 * understandable methods :)
-	 * 
-	 * @param app
-	 */
-	public GameScreen(ZApplication app) {
-		this.app = app;
-		this.engine = new PooledEngine(); // Important - this will only add 100
-											// Entities and 100 Components of
-											// each
-											// type to each pool!
+    /**
+     * TODO: Remove all the unorganized crap into nice, readable and
+     * understandable methods :)
+     * 
+     * @param app
+     */
+    public GameScreen(ZApplication app)
+    {
+        this.app = app;
+        this.engine = new PooledEngine(); // Important - this will only add 100
+                                          // Entities and 100 Components of
+                                          // each
+                                          // type to each pool!
 
-		// Set inputprocessor
-		this.gInputProcessor = new GameScreenInputProcessor(app, this);
+        // Set inputprocessor
+        this.gInputProcessor = new GameScreenInputProcessor(app, this);
 
-		// Create Viewport
-		ScreenViewport viewport = new ScreenViewport();
-		viewport.setUnitsPerPixel(Constants.B2D_UNITS_PER_PIXEL);
+        // Create Viewport
+        ScreenViewport viewport = new ScreenViewport();
+        viewport.setUnitsPerPixel(Constants.B2D_UNITS_PER_PIXEL);
 
-		// Create Systems
-		InputSystem inputSystem = new InputSystem();
-		gInputProcessor.addKeyboardListener(inputSystem);
-		engine.addSystem(inputSystem);
+        // Create Systems
+        InputSystem inputSystem = new InputSystem();
+        gInputProcessor.addKeyboardListener(inputSystem);
+        engine.addSystem(inputSystem);
 
-		PhysicsSystem pSystem = new PhysicsSystem();
-		engine.addSystem(pSystem);
+        PhysicsSystem pSystem = new PhysicsSystem();
+        engine.addSystem(pSystem);
 
-		engine.addSystem(new MovementSystem());
+        engine.addSystem(new MovementSystem());
 
-		// Init levelLoader
-		// This is important and stupid, but I don't know yet how to avoid it:
-		// We have to set the Box2D world for
-		// the LevelLoader, after PhysicsSystem was created, but we can't do it
-		// after the RenderingSystem is initialised, otherwise the
-		// tiledMapRenderer will throw an error...
-		// TODO: make this less stupid
+        engine.addSystem(new JumpingSystem());
 
-		this.levelLoader = new LevelLoader(app.getAssetManager(), engine.getSystem(PhysicsSystem.class).getWorld());
+        cameraController = new CameraController(viewport);
+        RenderingSystem rSystem = new RenderingSystem(app, cameraController);
+        engine.addSystem(rSystem);
 
-		EntityCreator.setEngine(engine);
-		float f = 10.0f;
-		Entity player = EntityCreator.createPlayer(f, f);
-		EntityCreator.createPlayer(++f, ++f);
+        // TODO: get rid of debug related stuff
 
-		cameraController = new CameraController(viewport);
-		cameraController.setTarget(player);
-		RenderingSystem rSystem = new RenderingSystem(app, levelLoader, cameraController);
-		engine.addSystem(rSystem);
+        this.levelLoader = new LevelLoader(app.getAssetManager(), engine.getSystem(PhysicsSystem.class).getWorld());
 
-		engine.addSystem(new JumpingSystem());
-		// TODO: get rid of debug related stuff
-		levelLoader.loadMap("maps/test1.tmx");
+        levelLoader.loadMap("maps/test1.tmx");
 
-		debugRenderer = new Box2DDebugRenderer();
+        EntityCreator.setEngine(engine);
+        float f = 10.0f;
+        Entity player = EntityCreator.createPlayer(f, f);
+        EntityCreator.createPlayer(++f, ++f);
 
-	}
+        cameraController.setTarget(player);
+        rSystem.setMap(levelLoader.getCurrentMap());
 
-	@Override
-	public void show() {
-		Gdx.input.setInputProcessor(gInputProcessor);
-	}
+        debugRenderer = new Box2DDebugRenderer();
 
-	@Override
-	public void render(float delta) {
-		engine.update(delta);
-		debugRenderer.render(engine.getSystem(PhysicsSystem.class).getWorld(), cameraController.getCamera().combined);
-	}
+    }
 
-	@Override
-	public void resize(int width, int height) {
-		cameraController.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-	}
+    @Override
+    public void show()
+    {
+        Gdx.input.setInputProcessor(gInputProcessor);
+    }
 
-	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
+    @Override
+    public void render(float delta)
+    {
+        engine.update(delta);
+        debugRenderer.render(engine.getSystem(PhysicsSystem.class).getWorld(), cameraController.getCamera().combined);
+    }
 
-	}
+    @Override
+    public void resize(int width, int height)
+    {
+        cameraController.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+    }
 
-	@Override
-	public void resume() {
-		app.getAssetManager().finishLoading();
-	}
+    @Override
+    public void pause()
+    {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void hide() {
-		Gdx.input.setInputProcessor(null);
-	}
+    }
 
-	@Override
-	public void dispose() {
+    @Override
+    public void resume()
+    {
+        app.getAssetManager().finishLoading();
+    }
 
-	}
+    @Override
+    public void hide()
+    {
+        Gdx.input.setInputProcessor(null);
+    }
 
-	public LevelLoader getLevelLoader() {
-		return levelLoader;
-	}
+    @Override
+    public void dispose()
+    {
 
-	public void setLevelLoader(LevelLoader levelLoader) {
-		this.levelLoader = levelLoader;
-	}
+    }
 
-	public CameraController getCameraController() {
-		return cameraController;
-	}
+    public LevelLoader getLevelLoader()
+    {
+        return levelLoader;
+    }
 
-	public void setCameraController(CameraController cameraController) {
-		this.cameraController = cameraController;
-	}
+    public void setLevelLoader(LevelLoader levelLoader)
+    {
+        this.levelLoader = levelLoader;
+    }
+
+    public CameraController getCameraController()
+    {
+        return cameraController;
+    }
+
+    public void setCameraController(CameraController cameraController)
+    {
+        this.cameraController = cameraController;
+    }
 
 }
