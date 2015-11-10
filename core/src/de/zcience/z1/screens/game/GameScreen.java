@@ -53,28 +53,34 @@ public class GameScreen implements Screen {
 		viewport.setUnitsPerPixel(Constants.B2D_UNITS_PER_PIXEL);
 
 		// Create Systems
+
+		// Inputsystem first, register it at the Inputprocessor
 		InputSystem inputSystem = new InputSystem();
-		gInputProcessor.addKeyboardListener(inputSystem);
-		engine.addSystem(inputSystem);
+		this.gInputProcessor.addKeyboardListener(inputSystem);
+		this.engine.addSystem(inputSystem);
 
+		// Then PhysicSystem
 		PhysicsSystem pSystem = new PhysicsSystem();
-		engine.addSystem(pSystem);
+		this.engine.addSystem(pSystem);
 
-		engine.addSystem(new MovementSystem());
+		// non-drawing Systems that depend on the information the physicssystem
+		// provides
+		this.engine.addSystem(new MovementSystem());
+		this.engine.addSystem(new JumpingSystem());
 
-		engine.addSystem(new JumpingSystem());
-
-		cameraController = new CameraController(viewport);
+		// Everything Render-related
+		this.cameraController = new CameraController(viewport);
 		RenderingSystem rSystem = new RenderingSystem(app, cameraController);
-		engine.addSystem(rSystem);
+		this.engine.addSystem(rSystem);
 
-		// TODO: get rid of debug related stuff
-
+		// Helper Class for loading level Assets
 		this.levelLoader = new LevelLoader(app.getAssetManager(), engine.getSystem(PhysicsSystem.class).getWorld());
 
+		// TODO: this shouldn't be exactly here, more like done in a
+		// LoadingScreen
 		levelLoader.loadMap("maps/test1.tmx");
-
 		EntityCreator.setEngine(engine);
+		// TODO: Read out of File, is here for Testing
 		float f = 40.0f;
 		Entity player = EntityCreator.createPlayer(10.0f, f);
 		EntityCreator.createPlayer(++f, ++f);
@@ -82,8 +88,7 @@ public class GameScreen implements Screen {
 		cameraController.setTarget(player);
 		rSystem.setMap(levelLoader.getCurrentMap());
 
-		debugRenderer = new Box2DDebugRenderer();
-
+		this.debugRenderer = new Box2DDebugRenderer();
 	}
 
 	@Override
