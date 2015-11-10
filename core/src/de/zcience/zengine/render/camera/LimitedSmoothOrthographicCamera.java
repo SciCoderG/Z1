@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.math.Vector2;
 
+import de.zcience.z1.gameplay.utils.Constants;
+
 /**
  * Extending the standard orthographic camera to keep it inside the limits of
  * the map and to make the movement smooth. Use members to adjust movement of
@@ -68,8 +70,9 @@ public class LimitedSmoothOrthographicCamera extends OrthographicCamera {
 	}
 
 	public void integrate(Vector2 target, float deltaTime) {
-		// using the normal spring equation
+		target = targetInBounds(target);
 
+		// using the spring equation
 		Vector2 springForce = new Vector2(target);
 		springForce.sub(this.position.x, this.position.y);
 		springForce.scl(springConstant);
@@ -85,13 +88,41 @@ public class LimitedSmoothOrthographicCamera extends OrthographicCamera {
 		this.position.set(position.x + currentVel.x * deltaTime, this.position.y + currentVel.y * deltaTime, 0.0f);
 	}
 
+	/**
+	 * Adjusts the target to make the camera stay in the bounds of the map.
+	 * 
+	 * @param target
+	 * @return
+	 */
+	private Vector2 targetInBounds(Vector2 target) {
+		Vector2 adjustedTarget = new Vector2(target);
+		float leftBound = this.viewportWidth * 0.5f;
+		float rightBound = this.mapWidth - leftBound;
+
+		float bottomBound = this.viewportHeight * 0.5f;
+		float topBound = this.mapHeight - bottomBound;
+		if (target.x < leftBound) {
+			adjustedTarget.x = leftBound;
+		}
+		if (target.x > rightBound) {
+			adjustedTarget.x = rightBound;
+		}
+		if (target.y < bottomBound) {
+			adjustedTarget.y = bottomBound;
+		}
+		if (target.y > topBound) {
+			adjustedTarget.y = topBound;
+		}
+		return adjustedTarget;
+	}
+
 	public void setMap(Map map) {
 		this.map = map;
 
 		this.mapWidth = map.getProperties().get("width", Integer.class)
-				* map.getProperties().get("tilewidth", Integer.class);
+				* map.getProperties().get("tilewidth", Integer.class) * Constants.B2D_UNITS_PER_PIXEL;
 		this.mapHeight = map.getProperties().get("height", Integer.class)
-				* map.getProperties().get("tileheight", Integer.class);
+				* map.getProperties().get("tileheight", Integer.class) * Constants.B2D_UNITS_PER_PIXEL;
 	}
 
 	public Map getMap() {

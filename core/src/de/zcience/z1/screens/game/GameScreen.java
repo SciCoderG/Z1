@@ -50,7 +50,6 @@ public class GameScreen implements Screen {
 
 		// Create Viewport
 		GameScreenViewport viewport = new GameScreenViewport();
-//		ScreenViewport viewport = new ScreenViewport();
 		viewport.setUnitsPerPixel(Constants.B2D_UNITS_PER_PIXEL);
 
 		// Create Systems
@@ -76,8 +75,8 @@ public class GameScreen implements Screen {
 		levelLoader.loadMap("maps/test1.tmx");
 
 		EntityCreator.setEngine(engine);
-		float f = 10.0f;
-		Entity player = EntityCreator.createPlayer(f, f);
+		float f = 40.0f;
+		Entity player = EntityCreator.createPlayer(10.0f, f);
 		EntityCreator.createPlayer(++f, ++f);
 
 		cameraController.setTarget(player);

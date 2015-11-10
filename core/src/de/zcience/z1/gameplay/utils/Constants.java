@@ -13,6 +13,6 @@ public class Constants {
 
 	public static float PLAYER_MAX_VELOCITY = 5.0f;
 
-	public static float CAMERA_SPRINGCONSTANT = 20.0f;
-	public static float CAMERA_MASS = 0.1f;
+	public static float CAMERA_SPRINGCONSTANT = 30.0f;
+	public static float CAMERA_MASS = 2f;
 }
