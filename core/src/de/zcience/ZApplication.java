@@ -11,8 +11,8 @@ import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import de.zcience.z1.screens.GameScreen;
 import de.zcience.z1.screens.MainMenuScreen;
+import de.zcience.z1.screens.game.GameScreen;
 
 public class ZApplication extends Game {
 	private SpriteBatch batch;

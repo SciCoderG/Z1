@@ -1,4 +1,4 @@
-package de.zcience.z1.screens;
+package de.zcience.z1.screens.game;
 
 import java.util.ArrayList;
 
