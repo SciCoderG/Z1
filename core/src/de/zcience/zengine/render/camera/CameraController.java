@@ -30,7 +30,7 @@ public class CameraController {
 				// bottom left
 				if (camera instanceof LimitedSmoothOrthographicCamera) {
 					LimitedSmoothOrthographicCamera limOrthCam = (LimitedSmoothOrthographicCamera) camera;
-					limOrthCam.integrate(pComp.getPosition(), deltaTime);
+					limOrthCam.update(pComp.getPosition(), deltaTime);
 				} else {
 					camera.position.set(pComp.getPosition().x, pComp.getPosition().y, 0.0f);
 				}

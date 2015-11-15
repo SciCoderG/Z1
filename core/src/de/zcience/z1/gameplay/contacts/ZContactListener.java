@@ -8,7 +8,6 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
 import de.zcience.z1.gameplay.movement.JumpComponent;
-import de.zcience.zengine.physics.components.Box2DComponent;
 
 public class ZContactListener implements ContactListener {
 

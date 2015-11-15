@@ -26,6 +26,9 @@ public class LimitedSmoothOrthographicCamera extends OrthographicCamera {
 	private float mass;
 	private Vector2 currentVel = new Vector2();
 
+	private float updateTimer;
+	private float timer = 0.0f;
+
 	/**
 	 * @param springConstant
 	 *            - The higher, the "harder" the connecting the camera to the
@@ -33,11 +36,15 @@ public class LimitedSmoothOrthographicCamera extends OrthographicCamera {
 	 *            target
 	 * @param mass
 	 *            - THe higher, the heavier the camera gets, meaning it will
-	 *            feel heavier
+	 *            feel heavier TODO: Check, if this is actually worth it...
+	 * @param updateTimer
+	 *            - Set this to like 1/60. Integrating the spring equation every
+	 *            frame is costly!
 	 */
-	public LimitedSmoothOrthographicCamera(float springConstant, float mass) {
+	public LimitedSmoothOrthographicCamera(float springConstant, float mass, float updateTimer) {
 		super();
 		this.init(springConstant, mass);
+		this.updateTimer = updateTimer;
 	}
 
 	/**
@@ -69,9 +76,18 @@ public class LimitedSmoothOrthographicCamera extends OrthographicCamera {
 		calcDampingConstant();
 	}
 
-	public void integrate(Vector2 target, float deltaTime) {
-		target = targetInBounds(target);
+	public void update(Vector2 target, float deltaTime) {
+		timer += deltaTime;
+		if (timer > updateTimer) {
+			integrate(target, deltaTime);
+			timer = 0.0f;
+		}
+		/* integrate position */
+		this.position.set(position.x + currentVel.x * deltaTime, this.position.y + currentVel.y * deltaTime, 0.0f);
+	}
 
+	private void integrate(Vector2 target, float deltaTime) {
+		target = targetInBounds(target);
 		// using the spring equation
 		Vector2 springForce = new Vector2(target);
 		springForce.sub(this.position.x, this.position.y);
@@ -84,8 +100,6 @@ public class LimitedSmoothOrthographicCamera extends OrthographicCamera {
 				/ mass); /* Calculate acceleration out of the Springforce */
 
 		currentVel.add(accel); // integrate velocity
-		/* integrate position */
-		this.position.set(position.x + currentVel.x * deltaTime, this.position.y + currentVel.y * deltaTime, 0.0f);
 	}
 
 	/**
@@ -150,6 +164,14 @@ public class LimitedSmoothOrthographicCamera extends OrthographicCamera {
 
 	public void setMass(float mass) {
 		this.mass = mass;
+	}
+
+	public float getUpdateTimer() {
+		return updateTimer;
+	}
+
+	public void setUpdateTimer(float updateTimer) {
+		this.updateTimer = updateTimer;
 	}
 
 }

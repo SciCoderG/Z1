@@ -5,7 +5,6 @@ import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import de.zcience.ZApplication;
 import de.zcience.z1.gameplay.input.InputSystem;

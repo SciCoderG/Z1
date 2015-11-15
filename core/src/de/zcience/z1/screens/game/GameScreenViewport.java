@@ -15,7 +15,7 @@ import de.zcience.zengine.render.camera.LimitedSmoothOrthographicCamera;
 public class GameScreenViewport extends ScreenViewport {
 
 	public GameScreenViewport() {
-		super(new LimitedSmoothOrthographicCamera(Constants.CAMERA_SPRINGCONSTANT, Constants.CAMERA_MASS));
+		super(new LimitedSmoothOrthographicCamera(Constants.CAMERA_SPRINGCONSTANT, Constants.CAMERA_MASS, Constants.CAMERA_UPDATE_TIMER));
 	}
 
 	public GameScreenViewport(Camera camera) {
