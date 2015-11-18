@@ -1,6 +1,7 @@
 package de.zcience.zengine.render.camera;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -13,13 +14,17 @@ public class CameraController {
 
 	private Viewport viewport;
 
-	private Camera camera;
+	private ZOrthographicCamera camera;
 
 	private TiledMap map;
 
 	public CameraController(Viewport viewport) {
 		this.viewport = viewport;
-		this.camera = viewport.getCamera();
+		try {
+			this.camera = (ZOrthographicCamera) viewport.getCamera();
+		} catch (ClassCastException e) {
+			Gdx.app.error("CameraController", "Can't cast given camera to ZOrthographicCamera." + e.getMessage());
+		}
 	}
 
 	public void update(float deltaTime) {
@@ -27,14 +32,7 @@ public class CameraController {
 			PositionComponent pComp = ZComponentMapper.position.get(target);
 
 			if (pComp != null) {
-				// bottom left
-				if (camera instanceof LimitedSmoothOrthographicCamera) {
-					LimitedSmoothOrthographicCamera limOrthCam = (LimitedSmoothOrthographicCamera) camera;
-					limOrthCam.update(pComp.getPosition(), deltaTime);
-				} else {
-					camera.position.set(pComp.getPosition().x, pComp.getPosition().y, 0.0f);
-				}
-
+				camera.update(pComp.getPosition(), deltaTime);
 				camera.update();
 
 			}
@@ -60,7 +58,7 @@ public class CameraController {
 	 * @param viewport
 	 */
 	public void setViewport(Viewport viewport) {
-		this.camera = viewport.getCamera();
+		this.camera = (ZOrthographicCamera) viewport.getCamera();
 		this.viewport = viewport;
 	}
 

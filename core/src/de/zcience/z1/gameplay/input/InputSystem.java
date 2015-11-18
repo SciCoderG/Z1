@@ -6,7 +6,6 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Vector2;
 
-import de.zcience.z1.gameplay.utils.statemachine.StateMachine;
 import de.zcience.zengine.input.ZKeyboardListener;
 import de.zcience.zengine.utils.Directions;
 import de.zcience.zengine.utils.ZComponentMapper;

@@ -45,7 +45,7 @@ public class GameScreen implements Screen {
 											// type to each pool!
 
 		// Set inputprocessor
-		this.gInputProcessor = new GameScreenInputProcessor(app, this);
+		this.gInputProcessor = new GameScreenInputProcessor(app);
 
 		// Create Viewport
 		GameScreenViewport viewport = new GameScreenViewport();

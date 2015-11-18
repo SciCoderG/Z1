@@ -1,6 +1,5 @@
 package de.zcience.zengine.render.camera;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.math.Vector2;
 
@@ -16,7 +15,7 @@ import de.zcience.z1.gameplay.utils.Constants;
  * @author David_000
  *
  */
-public class LimitedSmoothOrthographicCamera extends OrthographicCamera {
+public class LimitedSmoothOrthographicCamera extends ZOrthographicCamera {
 
 	private Map map;
 
@@ -76,6 +75,7 @@ public class LimitedSmoothOrthographicCamera extends OrthographicCamera {
 		calcDampingConstant();
 	}
 
+	
 	public void update(Vector2 target, float deltaTime) {
 		timer += deltaTime;
 		if (timer > updateTimer) {

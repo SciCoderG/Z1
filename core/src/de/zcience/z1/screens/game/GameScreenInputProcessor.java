@@ -19,15 +19,12 @@ public class GameScreenInputProcessor implements InputProcessor {
 
 	private ZApplication app;
 
-	private GameScreen gameScreen;
-
 	private ArrayList<ZKeyboardListener> keyboardListener = new ArrayList<ZKeyboardListener>();
 
 	private ArrayList<ZMouseListener> mouseListener = new ArrayList<ZMouseListener>();
 
-	public GameScreenInputProcessor(ZApplication app, GameScreen gameScreen) {
+	public GameScreenInputProcessor(ZApplication app) {
 		this.app = app;
-		this.gameScreen = gameScreen;
 	}
 
 	@Override
