@@ -3,7 +3,7 @@ package de.zcience.z1.gameplay.utils;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -16,6 +16,9 @@ import de.zcience.zengine.physics.components.PositionComponent;
 import de.zcience.zengine.physics.systems.PhysicsSystem;
 import de.zcience.zengine.physics.utils.PhysicsBodyDef;
 import de.zcience.zengine.physics.utils.PhysicsFixtureDef;
+import de.zcience.zengine.render.components.SpriteAnimationComponent;
+import de.zcience.zengine.render.components.TextureComponent;
+import de.zcience.zengine.render.utils.ZAnimation;
 
 public class EntityCreator {
 
@@ -69,15 +72,23 @@ public class EntityCreator {
 		fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height * 0.1f, new Vector2(0, -height * 0.4f));
 		box2D.createFixture(fixtureDef);
 		// jumpsensor
-		fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height / 10.0f, new Vector2(0, -height * 0.45f))
+		fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height * 0.1f, new Vector2(0, -height * 0.45f))
 				.sensor(true).mask(WORLDOBJECT);
 		Fixture fixture = box2D.createFixture(fixtureDef);
 		fixture.setUserData("Jump");
 		entity.add(box2D);
 
-		TextureAtlas atlas = assetManager.get("packedImages/Z1.atlas", TextureAtlas.class);	
-		Animation anim = new Animation(1.0f/16.0f, atlas.findRegions("playerWalk"));
-		
+		TextureAtlas atlas = assetManager.get("packedImages/Z1.atlas", TextureAtlas.class);
+		ZAnimation anim = new ZAnimation(1.0f / 16.0f, atlas.findRegions("player_walk"), PlayMode.LOOP);
+		SpriteAnimationComponent spriteAnim = engine.createComponent(SpriteAnimationComponent.class);
+		spriteAnim.setAnimation("walk", anim);
+		entity.add(spriteAnim);
+
+		TextureComponent texComp = engine.createComponent(TextureComponent.class);
+		texComp.setHeight(height);
+		texComp.setWidth(width*0.5f);
+		entity.add(texComp);
+
 		// LightComponent
 		// LightComponent lightCompo = engine
 		// .createComponent(LightComponent.class);

@@ -7,6 +7,8 @@ import de.zcience.z1.gameplay.movement.JumpComponent;
 import de.zcience.zengine.physics.components.Box2DComponent;
 import de.zcience.zengine.physics.components.PositionComponent;
 import de.zcience.zengine.physics.components.VelocityComponent;
+import de.zcience.zengine.render.components.SpriteAnimationComponent;
+import de.zcience.zengine.render.components.TextureComponent;
 
 /**
  * Every Component should be registered here, to be able to easily access a
@@ -25,5 +27,10 @@ public class ZComponentMapper {
 	public static final ComponentMapper<InputComponent> input = ComponentMapper.getFor(InputComponent.class);
 
 	public static final ComponentMapper<JumpComponent> jumping = ComponentMapper.getFor(JumpComponent.class);
+
+	public static final ComponentMapper<SpriteAnimationComponent> spriteAnimation = ComponentMapper
+			.getFor(SpriteAnimationComponent.class);
+
+	public static final ComponentMapper<TextureComponent> texture = ComponentMapper.getFor(TextureComponent.class);
 
 }

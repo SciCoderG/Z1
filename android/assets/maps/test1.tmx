@@ -3,13 +3,13 @@
  <tileset firstgid="1" name="Red n Grey" tilewidth="32" tileheight="32" tilecount="72">
   <image source="tilesets/someTilesInRed.png" width="384" height="192"/>
  </tileset>
- <imagelayer name="background" y="1184">
+ <imagelayer name="background" y="1184" visible="0">
   <image source="../texs/Cave Background Orig.png"/>
   <properties>
    <property name="parallax" value="0.5"/>
   </properties>
  </imagelayer>
- <imagelayer name="Kopie von background" x="1504" y="1184">
+ <imagelayer name="Kopie von background" x="1504" y="1184" visible="0">
   <image source="../texs/Cave Background Orig.png"/>
   <properties>
    <property name="parallax" value="0.5"/>

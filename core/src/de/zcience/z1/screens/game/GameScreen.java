@@ -15,6 +15,7 @@ import de.zcience.z1.gameplay.utils.Constants;
 import de.zcience.z1.gameplay.utils.EntityCreator;
 import de.zcience.zengine.physics.systems.PhysicsSystem;
 import de.zcience.zengine.render.camera.CameraController;
+import de.zcience.zengine.render.systems.AnimationUpdateSystem;
 import de.zcience.zengine.render.systems.RenderingSystem;
 
 public class GameScreen implements Screen {
@@ -68,9 +69,15 @@ public class GameScreen implements Screen {
 		this.engine.addSystem(new JumpingSystem());
 
 		// Everything Render-related
+		
+		this.engine.addSystem(new AnimationUpdateSystem());
+
 		this.cameraController = new CameraController(viewport);
+		
+		
 		RenderingSystem rSystem = new RenderingSystem(app, cameraController);
 		this.engine.addSystem(rSystem);
+		
 
 		// Helper Class for loading level Assets
 		this.levelLoader = new LevelLoader(app.getAssetManager(), engine.getSystem(PhysicsSystem.class).getWorld());
