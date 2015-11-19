@@ -11,10 +11,10 @@ public class DesktopLauncher
 {
     public static void main(String[] arg)
     {
-    	Settings settings = new Settings();
-        settings.maxWidth = 512;
-        settings.maxHeight = 512;
-        TexturePacker.process(settings, "../images", "../android/assets/packedImages", "Z1");
+//    	Settings settings = new Settings();
+//        settings.maxWidth = 512;
+//        settings.maxHeight = 512;
+//        TexturePacker.process(settings, "../images", "../android/assets/packedImages", "Z1");
     	
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.title = "z1";

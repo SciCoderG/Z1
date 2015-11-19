@@ -20,94 +20,99 @@ import de.zcience.zengine.render.components.SpriteAnimationComponent;
 import de.zcience.zengine.render.components.TextureComponent;
 import de.zcience.zengine.render.utils.ZAnimation;
 
-public class EntityCreator {
+public class EntityCreator
+{
 
-	public static short LIGHT = 0x008;
+    public static short LIGHT = 0x008;
 
-	public static short WORLDOBJECT = 0x002;
+    public static short WORLDOBJECT = 0x002;
 
-	public static short PLAYER = 0x006;
+    public static short PLAYER = 0x006;
 
-	private PooledEngine engine;
+    private PooledEngine engine;
 
-	private AssetManager assetManager;
+    private AssetManager assetManager;
 
-	public EntityCreator(PooledEngine engine, AssetManager assetManager) {
-		this.engine = engine;
-		this.assetManager = assetManager;
-	}
+    public EntityCreator(PooledEngine engine, AssetManager assetManager)
+    {
+        this.engine = engine;
+        this.assetManager = assetManager;
+    }
 
-	public Entity createPlayer(float x, float y) {
-		Entity entity = engine.createEntity();
-		PhysicsSystem physicsSystem = engine.getSystem(PhysicsSystem.class);
+    public Entity createPlayer(float x, float y)
+    {
+        Entity entity = engine.createEntity();
+        PhysicsSystem physicsSystem = engine.getSystem(PhysicsSystem.class);
 
-		PositionComponent pComp = engine.createComponent(PositionComponent.class);
-		entity.add(pComp);
+        PositionComponent pComp = engine.createComponent(PositionComponent.class);
+        entity.add(pComp);
 
-		InputComponent iComp = engine.createComponent(InputComponent.class);
-		iComp.init(true, 4f, 20f);
-		entity.add(iComp);
+        InputComponent iComp = engine.createComponent(InputComponent.class);
+        iComp.init(true, 4f, 20f);
+        entity.add(iComp);
 
-		JumpComponent jComp = new JumpComponent();
-		jComp.setMaxImpulse(10.0f);
-		entity.add(jComp);
-		/*
-		 * Box2D body
-		 */
-		float width = 1.0f;
-		float height = 1.0f;
-		Box2DComponent box2D = engine.createComponent(Box2DComponent.class);
-		PhysicsBodyDef bodyDef = new PhysicsBodyDef(BodyType.DynamicBody, physicsSystem).fixedRotation(true).position(x,
-				y);
-		box2D.init(bodyDef, physicsSystem, entity);
-		// Head
-		PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem)
-				.shapeCircle(height * 0.12f, new Vector2(0, height * 0.25f)).friction(0);
-		box2D.createFixture(fixtureDef);
-		// middle
-		fixtureDef = new PhysicsFixtureDef(physicsSystem)
-				.shapeBox(width * 0.2f, height * 0.6f, new Vector2(0, -height * 0.1f), 0).friction(0);
-		box2D.createFixture(fixtureDef);
-		// bottom
-		fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height * 0.1f, new Vector2(0, -height * 0.4f));
-		box2D.createFixture(fixtureDef);
-		// jumpsensor
-		fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height * 0.1f, new Vector2(0, -height * 0.45f))
-				.sensor(true).mask(WORLDOBJECT);
-		Fixture fixture = box2D.createFixture(fixtureDef);
-		fixture.setUserData("Jump");
-		entity.add(box2D);
+        JumpComponent jComp = new JumpComponent();
+        jComp.setMaxImpulse(10.0f);
+        entity.add(jComp);
+        /*
+         * Box2D body
+         */
+        float width = 1.0f;
+        float height = 1.0f;
+        Box2DComponent box2D = engine.createComponent(Box2DComponent.class);
+        PhysicsBodyDef bodyDef = new PhysicsBodyDef(BodyType.DynamicBody, physicsSystem).fixedRotation(true).position(x, y);
+        box2D.init(bodyDef, physicsSystem, entity);
+//        // Head
+//        PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height * 0.12f, new Vector2(0, height * 0.25f)).friction(0);
+//        box2D.createFixture(fixtureDef);
+//        // middle
+//        fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeBox(width * 0.2f, height * 0.6f, new Vector2(0, -height * 0.1f), 0).friction(0);
+//        box2D.createFixture(fixtureDef);
+//        // bottom
+//        fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height * 0.1f, new Vector2(0, -height * 0.4f));
+//        box2D.createFixture(fixtureDef);
+        // jumpsensor
+        PhysicsFixtureDef fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeCircle(height * 0.1f, new Vector2(0, -height * 0.45f)).sensor(true).mask(WORLDOBJECT);
+        Fixture fixture = box2D.createFixture(fixtureDef);
+        fixture.setUserData("Jump");
 
-		TextureAtlas atlas = assetManager.get("packedImages/Z1.atlas", TextureAtlas.class);
-		ZAnimation anim = new ZAnimation(1.0f / 16.0f, atlas.findRegions("player_walk"), PlayMode.LOOP);
-		SpriteAnimationComponent spriteAnim = engine.createComponent(SpriteAnimationComponent.class);
-		spriteAnim.setAnimation("walk", anim);
-		entity.add(spriteAnim);
+        fixtureDef = new PhysicsFixtureDef(physicsSystem).shapeBox(width * 0.2f, height * 0.6f, new Vector2(0, -height * 0.1f), 0).friction(0);
+        box2D.createFixture(fixtureDef);
 
-		TextureComponent texComp = engine.createComponent(TextureComponent.class);
-		texComp.setHeight(height);
-		texComp.setWidth(width*0.5f);
-		entity.add(texComp);
+        entity.add(box2D);
 
-		// LightComponent
-		// LightComponent lightCompo = engine
-		// .createComponent(LightComponent.class);
-		// lightCompo.light = new PointLight(LightSystem.rayHandler, 256,
-		// new Color(0.3f, 0.3f, 0.3f, 1f), 9, x, y);
+        TextureAtlas atlas = assetManager.get("packedImages/Z1.atlas", TextureAtlas.class);
+        ZAnimation anim = new ZAnimation(1.0f / 16.0f, atlas.findRegions("player_walk"), PlayMode.LOOP);
+        SpriteAnimationComponent spriteAnim = engine.createComponent(SpriteAnimationComponent.class);
+        spriteAnim.setAnimation("walk", anim);
+        entity.add(spriteAnim);
 
-		// lightCompo.light.attachToBody(physicsBody.getBody());
-		//
-		// entity.add(lightCompo);
+        TextureComponent texComp = engine.createComponent(TextureComponent.class);
+        texComp.setHeight(height);
+        texComp.setWidth(width * 0.5f);
+        entity.add(texComp);
 
-		engine.addEntity(entity);
-		return entity;
-	}
+        // LightComponent
+        // LightComponent lightCompo = engine
+        // .createComponent(LightComponent.class);
+        // lightCompo.light = new PointLight(LightSystem.rayHandler, 256,
+        // new Color(0.3f, 0.3f, 0.3f, 1f), 9, x, y);
 
-	public PooledEngine getEngine() {
-		return engine;
-	}
+        // lightCompo.light.attachToBody(physicsBody.getBody());
+        //
+        // entity.add(lightCompo);
 
-	public void setEngine(PooledEngine engine) {
-		this.engine = engine;
-	}
+        engine.addEntity(entity);
+        return entity;
+    }
+
+    public PooledEngine getEngine()
+    {
+        return engine;
+    }
+
+    public void setEngine(PooledEngine engine)
+    {
+        this.engine = engine;
+    }
 }
