@@ -3,6 +3,7 @@ package de.zcience.z1.gameplay.level;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.physics.box2d.World;
@@ -23,6 +24,7 @@ public class LevelLoader {
 		this.currentWorld = currentWorld;
 		assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
 		assetManager.load("maps/test1.tmx", TiledMap.class);
+		assetManager.load("packedImages/Z1.atlas", TextureAtlas.class);
 		assetManager.finishLoading();
 		
 		mapBodyManager = new MapBodyManager(currentWorld, Constants.B2D_UNITS_PER_PIXEL,

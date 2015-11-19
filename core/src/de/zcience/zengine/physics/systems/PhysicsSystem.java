@@ -10,10 +10,10 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import de.zcience.z1.gameplay.contacts.ZContactListener;
 import de.zcience.z1.gameplay.utils.Constants;
+import de.zcience.z1.gameplay.utils.ZComponentMapper;
 import de.zcience.zengine.physics.components.Box2DComponent;
 import de.zcience.zengine.physics.components.PositionComponent;
 import de.zcience.zengine.physics.components.VelocityComponent;
-import de.zcience.zengine.utils.ZComponentMapper;
 
 /**
  * Physicssystem updating the box2d world. Should have a set Intervall to ensure

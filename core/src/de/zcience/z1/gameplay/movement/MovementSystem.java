@@ -6,9 +6,9 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.Vector2;
 
 import de.zcience.z1.gameplay.input.InputComponent;
+import de.zcience.z1.gameplay.utils.ZComponentMapper;
 import de.zcience.zengine.physics.components.Box2DComponent;
 import de.zcience.zengine.physics.components.PositionComponent;
-import de.zcience.zengine.utils.ZComponentMapper;
 
 public class MovementSystem extends IteratingSystem {
 

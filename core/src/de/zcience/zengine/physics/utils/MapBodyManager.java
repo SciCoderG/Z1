@@ -186,7 +186,7 @@ public class MapBodyManager
 
     private void loadMaterialsFile(FileHandle materialsFile)
     {
-        Gdx.app.log("MapBodyManager: ", "adding default material");
+        //Gdx.app.log("MapBodyManager: ", "adding default material");
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.density = 1.0f;
@@ -194,7 +194,7 @@ public class MapBodyManager
         fixtureDef.restitution = 0.0f;
         materials.put("default", fixtureDef);
 
-        Gdx.app.log("MapBodyManager: ", "loading materials file");
+        //Gdx.app.log("MapBodyManager: ", "loading materials file");
 
         try
         {
@@ -218,7 +218,7 @@ public class MapBodyManager
                 fixtureDef.density = materialValue.getFloat("density", 1.0f);
                 fixtureDef.friction = materialValue.getFloat("friction", 1.0f);
                 fixtureDef.restitution = materialValue.getFloat("restitution", 0.0f);
-                Gdx.app.log("MapBodyManager: ", "adding material " + name);
+                //Gdx.app.log("MapBodyManager: ", "adding material " + name);
                 materials.put(name, fixtureDef);
             }
 
@@ -234,7 +234,7 @@ public class MapBodyManager
         Rectangle rectangle = rectangleObject.getRectangle();
         PolygonShape polygon = new PolygonShape();
         Vector2 size = new Vector2((rectangle.x + rectangle.width * 0.5f) / units, (rectangle.y + rectangle.height * 0.5f) / units);
-        Gdx.app.log("MapBodyManager", "RectangleObject: with size: " + size);
+        //Gdx.app.log("MapBodyManager", "RectangleObject: with size: " + size);
         polygon.setAsBox(rectangle.width * 0.5f / units, rectangle.height * 0.5f / units, size, 0.0f);
         return polygon;
     }

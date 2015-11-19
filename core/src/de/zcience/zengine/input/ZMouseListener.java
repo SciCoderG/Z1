@@ -11,4 +11,6 @@ public interface ZMouseListener
     public boolean mouseMoved(int screenX, int screenY);
 
     public boolean scrolled(int amount);
+    
+    public void hide();
 }

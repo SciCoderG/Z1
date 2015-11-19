@@ -78,11 +78,12 @@ public class GameScreen implements Screen {
 		// TODO: this shouldn't be exactly here, more like done in a
 		// LoadingScreen
 		levelLoader.loadMap("maps/test1.tmx");
-		EntityCreator.setEngine(engine);
+		EntityCreator eCreator = new EntityCreator(engine, app.getAssetManager());
+		eCreator.setEngine(engine);
 		// TODO: Read out of File, is here for Testing
 		float f = 40.0f;
-		Entity player = EntityCreator.createPlayer(10.0f, f);
-		EntityCreator.createPlayer(++f, ++f);
+		Entity player = eCreator.createPlayer(10.0f, f);
+		eCreator.createPlayer(++f, ++f);
 
 		cameraController.setTarget(player);
 		rSystem.setMap(levelLoader.getCurrentMap());
@@ -119,6 +120,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void hide() {
+		gInputProcessor.hide();
 		Gdx.input.setInputProcessor(null);
 	}
 

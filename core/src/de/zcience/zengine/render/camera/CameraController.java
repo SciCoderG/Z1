@@ -2,12 +2,11 @@ package de.zcience.zengine.render.camera;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import de.zcience.z1.gameplay.utils.ZComponentMapper;
 import de.zcience.zengine.physics.components.PositionComponent;
-import de.zcience.zengine.utils.ZComponentMapper;
 
 public class CameraController {
 	private Entity target;
@@ -62,7 +61,7 @@ public class CameraController {
 		this.viewport = viewport;
 	}
 
-	public Camera getCamera() {
+	public ZOrthographicCamera getCamera() {
 		return camera;
 	}
 

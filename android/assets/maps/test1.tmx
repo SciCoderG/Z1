@@ -9,7 +9,7 @@
    <property name="parallax" value="0.5"/>
   </properties>
  </imagelayer>
- <imagelayer name="Kopie von background" x="1184" y="1184">
+ <imagelayer name="Kopie von background" x="1504" y="1184">
   <image source="../texs/Cave Background Orig.png"/>
   <properties>
    <property name="parallax" value="0.5"/>

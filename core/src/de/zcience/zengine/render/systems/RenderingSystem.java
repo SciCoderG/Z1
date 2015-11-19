@@ -4,15 +4,14 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 import de.zcience.ZApplication;
 import de.zcience.z1.gameplay.utils.Constants;
 import de.zcience.zengine.render.camera.CameraController;
+import de.zcience.zengine.render.camera.ZOrthographicCamera;
 
 public class RenderingSystem extends IteratingSystem {
 
@@ -39,15 +38,10 @@ public class RenderingSystem extends IteratingSystem {
 	public void update(float deltaTime) {
 		camController.update(deltaTime);
 		if (null != tiledMapRenderer) {
-			if (camController.getCamera() instanceof OrthographicCamera) {
-				OrthographicCamera oCam = (OrthographicCamera) camController.getCamera();
+			ZOrthographicCamera oCam = camController.getCamera();
 
-				tiledMapRenderer.setView(oCam);
-				tiledMapRenderer.render(); // TODO: Get the layer order right!
-			} else {
-				Gdx.app.error("RenderingSystem",
-						"TiledMap can't be rendered, viewport does not provide an OrthographicCamera!");
-			}
+			tiledMapRenderer.setView(oCam);
+			tiledMapRenderer.render(); // TODO: Get the layer order right!
 		}
 		super.update(deltaTime);
 		// stage.draw();

@@ -10,7 +10,8 @@ import de.zcience.zengine.input.ZKeyboardListener;
 import de.zcience.zengine.input.ZMouseListener;
 
 /**
- * This is a simpliefied version.
+ * This is processor distributes the complete input on the different input
+ * listener, like the actual gameplay processor or ui-processor.
  * 
  * @author Zcience
  *
@@ -135,6 +136,18 @@ public class GameScreenInputProcessor implements InputProcessor {
 
 	public void removeMouseListener(ZMouseListener l) {
 		mouseListener.remove(l);
+	}
+
+	/**
+	 * Is called, if the screen is switched
+	 */
+	public void hide() {
+		for(ZKeyboardListener l : keyboardListener){
+			l.hide();
+		}
+		for(ZMouseListener l : mouseListener){
+			l.hide();
+		}
 	}
 
 }

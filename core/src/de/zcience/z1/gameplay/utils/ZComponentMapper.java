@@ -1,4 +1,4 @@
-package de.zcience.zengine.utils;
+package de.zcience.z1.gameplay.utils;
 
 import com.badlogic.ashley.core.ComponentMapper;
 
